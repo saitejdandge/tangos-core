@@ -5,7 +5,8 @@
     "dev": "ts-node sample/server.ts",
     "build": "tsc",
     "lint": "tslint -c tslint.json",
-    "pretty": "prettier --write --tab-width 2 \"src/**/*.ts\""
+    "pretty": "prettier --write --tab-width 2 \"src/**/*.ts\"",
+    "dummy":""
   },
   "main": "sdk/src/index.js",
   "types": "sdk/src/index.d.ts",

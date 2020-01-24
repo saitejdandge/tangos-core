@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - lts/*
+scripts:
+  "npm run dummy"
 deploy:
   provider: npm
   email: appeningofficial@gmail.com
