@@ -4,6 +4,7 @@ node_js:
 scripts:
   "npm run dummy"
 deploy:
+  edge: true
   provider: npm
   email: appeningofficial@gmail.com
   api_key: $NPM_TOKEN
