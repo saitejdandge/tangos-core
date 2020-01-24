@@ -1,5 +1,5 @@
 {
-  "name": "tangos",
+  "name": "tangos-core",
   "version": "2.0.0",
   "scripts": {
     "dev": "ts-node sample/server.ts",
@@ -9,7 +9,7 @@
   },
   "main": "sdk/src/index.js",
   "types": "sdk/src/index.d.ts",
-  "author": "SaiTej Dandge <saitejdandge1@gmail.com>",
+  "author": "Appening.io <appeningofficial@gmail.com>",
   "dependencies": {
     "@types/connect-timeout": "0.0.34",
     "@types/mongoose": "^5.5.23",
