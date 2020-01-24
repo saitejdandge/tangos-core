@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - lts/*
+deploy:
+  provider: npm
+  email: saitejdandge1@gmail.com
+  api_key: $NPM_TOKEN

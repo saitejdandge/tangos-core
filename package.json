@@ -1,0 +1,41 @@
+{
+  "name": "tangos",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "ts-node sample/server.ts",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json",
+    "pretty": "prettier --write --tab-width 2 \"src/**/*.ts\""
+  },
+  "main": "sdk/src/index.js",
+  "types": "sdk/src/index.d.ts",
+  "author": "SaiTej Dandge <saitejdandge1@gmail.com>",
+  "dependencies": {
+    "@types/connect-timeout": "0.0.34",
+    "@types/mongoose": "^5.5.23",
+    "@types/node": "^12.11.1",
+    "body-parser": "^1.19.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.10.2",
+    "connect-timeout": "^1.9.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "envalid": "^5.0.0",
+    "express": "^4.17.1",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.5",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/jsonwebtoken": "^8.3.5",
+    "eslint": "^6.5.1",
+    "prettier": "^1.18.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.7.2"
+  }
+}

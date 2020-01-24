@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "./sdk",
+    "declaration": true,
+    "strict": true
+  },
+  "exclude": ["node_modules", "./sdk/**/*", "./sample/**/*"]
+}
