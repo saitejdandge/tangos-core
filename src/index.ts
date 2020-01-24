@@ -1,11 +1,11 @@
-import { AuthConfig } from "./auth/AuthConfig";
-import { JWTManager } from "./auth/JWTManager";
-import { BaseController } from "./controllers/BaseController";
-import { DbConfig } from "./database/db.config";
-import { DBConnector } from "./database/DBConnector";
-import { BaseDTO } from "./dto/baseDTO";
-import { DataDTO } from "./dto/dataDTO";
-import { IdDTO } from "./dto/IdDTO";
+import { AuthConfig } from './auth/AuthConfig';
+import { JWTManager } from './auth/JWTManager';
+import { BaseController } from './controllers/BaseController';
+import { DbConfig } from './database/db.config';
+import { DBConnector } from './database/DBConnector';
+import { BaseDTO } from './dto/baseDTO';
+import { DataDTO } from './dto/dataDTO';
+import { IdDTO } from './dto/IdDTO';
 
 import { AuthenticationTokenMissingException } from './exceptions/AuthenticationTokenMissingException';
 import { DBConnectionException } from './exceptions/DBConnectionException';
@@ -20,36 +20,36 @@ import { BaseInterface } from './models/base.interface';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 
+import { BaseApp } from './BaseApp';
+import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
 import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
-import { validateEnv } from "./utils/validateEnv"
-import { BaseApp } from './BaseApp';
-import { Config } from './Config';
+import { validateEnv } from './utils/validateEnv';
 
-module.exports={
-AuthConfig,
-JWTManager,
-BaseController,
-DbConfig,
-DBConnector,
-BaseDTO,
-IdDTO,
-AuthenticationTokenMissingException,
-DBConnectionException,
-HttpException,
-InvalidHandlerException,
-InvalidParamsException,
-PageNotFoundException,
-StandardException,
-TimeoutException,
+export default{
+  AuthConfig,
+  JWTManager,
+  BaseController,
+  DbConfig,
+  DBConnector,
+  BaseDTO,
+  IdDTO,
+  AuthenticationTokenMissingException,
+  DBConnectionException,
+  HttpException,
+  InvalidHandlerException,
+  InvalidParamsException,
+  PageNotFoundException,
+  StandardException,
+  TimeoutException,
 // BaseInterface,
-BaseModel,
-CustomRoute,
-BasePresenter,
-CommonEndPoints,
-validateEnv,
-BaseApp,
-Config
+  BaseModel,
+  CustomRoute,
+  BasePresenter,
+  CommonEndPoints,
+  validateEnv,
+  BaseApp,
+  Config,
 
 };

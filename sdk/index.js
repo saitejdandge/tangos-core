@@ -17,12 +17,12 @@ const StandardException_1 = require("./exceptions/StandardException");
 const TimeoutException_1 = require("./exceptions/TimeoutException");
 const base_model_1 = require("./models/base.model");
 const CustomRoute_1 = require("./models/CustomRoute");
+const BaseApp_1 = require("./BaseApp");
+const Config_1 = require("./Config");
 const BasePresenter_1 = require("./presenters/BasePresenter");
 const CommonEndPoints_1 = require("./utils/CommonEndPoints");
 const validateEnv_1 = require("./utils/validateEnv");
-const BaseApp_1 = require("./BaseApp");
-const Config_1 = require("./Config");
-module.exports = {
+exports.default = {
     AuthConfig: AuthConfig_1.AuthConfig,
     JWTManager: JWTManager_1.JWTManager,
     BaseController: BaseController_1.BaseController,
@@ -45,5 +45,5 @@ module.exports = {
     CommonEndPoints: CommonEndPoints_1.CommonEndPoints,
     validateEnv: validateEnv_1.validateEnv,
     BaseApp: BaseApp_1.BaseApp,
-    Config: Config_1.Config
+    Config: Config_1.Config,
 };
