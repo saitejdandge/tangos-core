@@ -1,7 +1,7 @@
 export class CustomRoute {
-  endPoint: string;
-  handler: any;
-  middlewares: any[];
+  public endPoint: string;
+  public handler: any;
+  public middlewares: any[];
 
   constructor(endPoint: string, handler: any, ...middlewares: any[]) {
     this.endPoint = endPoint;

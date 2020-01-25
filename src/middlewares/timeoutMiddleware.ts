@@ -4,7 +4,7 @@ import { TimeoutException } from '../exceptions/TimeoutException';
 export function timeoutMiddleware(
   request: express.Request,
   response: express.Response,
-  next: express.NextFunction
+  next: express.NextFunction,
 ) {
   if (request.timedout) {
     throw new TimeoutException();

@@ -21,8 +21,8 @@ class BaseResponse {
     static getOAuthConfigDisabledResponse() {
         return new BaseResponse(1, 'OAuth config disabled', null);
     }
-    static getAuthenticationSuccessResponse(user_id) {
-        return new BaseResponse(1, user_id + 'Authenticated successfully', user_id);
+    static getAuthenticationSuccessResponse(userId) {
+        return new BaseResponse(1, userId + 'Authenticated successfully', userId);
     }
 }
 exports.BaseResponse = BaseResponse;

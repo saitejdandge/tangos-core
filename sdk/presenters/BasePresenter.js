@@ -1,18 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const StandardException_1 = require("../exceptions/StandardException");
 const InvalidParamsException_1 = require("../exceptions/InvalidParamsException");
+const StandardException_1 = require("../exceptions/StandardException");
 const BaseResponse_1 = require("../responses/BaseResponse");
 class BasePresenter {
     constructor(baseModel) {
         this.find = (query) => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    let data = await this.baseModel
+                    const data = await this.baseModel
                         .getModelSchema()
                         .find(query != null ? JSON.parse(query) : {});
-                    if (data != null && data.length != 0)
+                    if (data != null && data.length !== 0) {
                         resolve(BaseResponse_1.BaseResponse.getSuccessResponse(data));
+                    }
                     else
                         resolve(BaseResponse_1.BaseResponse.getEmptyResponse());
                 }
@@ -41,6 +42,7 @@ class BasePresenter {
                     this.baseModel
                         .getModelSchema()
                         .updateMany(query != null ? JSON.parse(query) : {}, { $set: data != null ? JSON.parse(data) : {} }, { new: true })
+                        // tslint:disable-next-line: no-shadowed-variable
                         .then(data => {
                         if (data != null)
                             resolve(BaseResponse_1.BaseResponse.getSuccessResponse(data));
@@ -57,9 +59,10 @@ class BasePresenter {
                 if (data != null) {
                     const createdPost = new (this.baseModel.getModelSchema())(JSON.parse(data));
                     try {
-                        let savedPost = await createdPost.save();
-                        if (savedPost != null)
+                        const savedPost = await createdPost.save();
+                        if (savedPost != null) {
                             resolve(BaseResponse_1.BaseResponse.getSuccessResponse(savedPost));
+                        }
                         else
                             reject(new StandardException_1.StandardException());
                     }
@@ -78,8 +81,9 @@ class BasePresenter {
                     .getModelSchema()
                     .deleteMany(query != null ? JSON.parse(query) : {})
                     .then(successResponse => {
-                    if (successResponse)
+                    if (successResponse) {
                         resolve(BaseResponse_1.BaseResponse.getSuccessResponse(successResponse));
+                    }
                     else
                         reject(new StandardException_1.StandardException());
                 });

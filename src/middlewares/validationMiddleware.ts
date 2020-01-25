@@ -5,7 +5,7 @@ import { HttpException } from '../exceptions/HttpException';
 
 export function validationMiddleware<T>(
   type: any,
-  skipMissingProperties = false
+  skipMissingProperties = false,
 ): express.RequestHandler {
   return (req, res, next) => {
     validate(plainToClass(type, req.body), { skipMissingProperties }).then(
@@ -18,7 +18,7 @@ export function validationMiddleware<T>(
         } else {
           next();
         }
-      }
+      },
     );
   };
 }

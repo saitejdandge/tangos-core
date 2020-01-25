@@ -5,7 +5,7 @@ export declare class JWTManager {
     authConfig: AuthConfig;
     config: Config;
     constructor(authConfig: AuthConfig, config: Config);
-    createToken(user_id: string): string;
+    createToken(userId: string): string;
     verifyToken(req: any): Promise<BaseResponse>;
     private checkUserSession;
 }

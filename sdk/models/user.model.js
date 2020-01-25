@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_model_1 = require("./base.model");
 const Config_1 = require("../Config");
+const base_model_1 = require("./base.model");
 class UserModel extends base_model_1.BaseModel {
     constructor() {
         super(...arguments);
@@ -10,7 +10,7 @@ class UserModel extends base_model_1.BaseModel {
             name: String,
             creationDate: Date,
             email: String,
-            address: JSON
+            address: JSON,
         });
     }
 }

@@ -2,18 +2,19 @@ import * as mongoose from 'mongoose';
 import { BaseInterface } from './base.interface';
 
 export abstract class BaseModel implements BaseInterface {
-  _id: any;
-  abstract collectionName: string;
-  abstract schema: any;
 
-  getModelSchema() {
+  public static getMongoSchema(schema: any) {
+    return new mongoose.Schema(schema, { versionKey: false });
+  }
+  // tslint:disable-next-line: variable-name
+  public _id: any;
+  public abstract collectionName: string;
+  public abstract schema: any;
+
+  public getModelSchema() {
     return mongoose.model<BaseInterface & mongoose.Document>(
       this.collectionName,
-      this.schema
+      this.schema,
     );
-  }
-
-  static getMongoSchema(schema: any) {
-    return new mongoose.Schema(schema, { versionKey: false });
   }
 }

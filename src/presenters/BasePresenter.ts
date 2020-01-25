@@ -1,6 +1,6 @@
-import { BaseModel } from '../models/base.model';
-import { StandardException } from '../exceptions/StandardException';
 import { InvalidParamsException } from '../exceptions/InvalidParamsException';
+import { StandardException } from '../exceptions/StandardException';
+import { BaseModel } from '../models/base.model';
 import { BaseResponse } from '../responses/BaseResponse';
 
 export class BasePresenter {
@@ -13,17 +13,17 @@ export class BasePresenter {
   public find = (query: string) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await this.baseModel
+        const data = await this.baseModel
           .getModelSchema()
           .find(query != null ? JSON.parse(query) : {});
-        if (data != null && data.length != 0)
+        if (data != null && data.length !== 0) {
           resolve(BaseResponse.getSuccessResponse(data));
-        else resolve(BaseResponse.getEmptyResponse());
+        } else resolve(BaseResponse.getEmptyResponse());
       } catch (e) {
         reject(new StandardException());
       }
     });
-  };
+  }
 
   public findOne = (query: string) => {
     return new Promise<BaseResponse>(resolve => {
@@ -35,7 +35,7 @@ export class BasePresenter {
           else resolve(BaseResponse.getEmptyResponse());
         });
     });
-  };
+  }
 
   public update = (query: string, data: string) => {
     return new Promise<BaseResponse>((resolve, reject) => {
@@ -46,33 +46,34 @@ export class BasePresenter {
           .updateMany(
             query != null ? JSON.parse(query) : {},
             { $set: data != null ? JSON.parse(data) : {} },
-            { new: true }
+            { new: true },
           )
+          // tslint:disable-next-line: no-shadowed-variable
           .then(data => {
             if (data != null) resolve(BaseResponse.getSuccessResponse(data));
             else reject(new StandardException());
           });
       } else reject(new InvalidParamsException());
     });
-  };
+  }
 
   public create = (data: string) => {
     return new Promise(async (resolve, reject) => {
       if (data != null) {
         const createdPost = new (this.baseModel.getModelSchema())(
-          JSON.parse(data)
+          JSON.parse(data),
         );
         try {
-          let savedPost = await createdPost.save();
-          if (savedPost != null)
+          const savedPost = await createdPost.save();
+          if (savedPost != null) {
             resolve(BaseResponse.getSuccessResponse(savedPost));
-          else reject(new StandardException());
+          } else reject(new StandardException());
         } catch (e) {
           reject(new StandardException());
         }
       } else reject(new InvalidParamsException());
     });
-  };
+  }
 
   public deleteData = (query: string) => {
     // const id = request.params.id;
@@ -81,10 +82,10 @@ export class BasePresenter {
         .getModelSchema()
         .deleteMany(query != null ? JSON.parse(query) : {})
         .then(successResponse => {
-          if (successResponse)
+          if (successResponse) {
             resolve(BaseResponse.getSuccessResponse(successResponse));
-          else reject(new StandardException());
+          } else reject(new StandardException());
         });
     });
-  };
+  }
 }

@@ -14,5 +14,5 @@ class Config {
 exports.Config = Config;
 Config.collectionNames = {
     user_sessions: 'user_sessions',
-    users: 'users'
+    users: 'users',
 };

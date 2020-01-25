@@ -1,7 +1,7 @@
 export class HttpException extends Error {
-  opStatus: number;
-  result: number;
-  message: string;
+  public opStatus: number;
+  public result: number;
+  public message: string;
 
   constructor(result: number, opStatus: number, message: string) {
     super(message);

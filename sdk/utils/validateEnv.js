@@ -6,7 +6,7 @@ function validateEnv() {
         MONGO_PASSWORD: envalid_1.str(),
         MONGO_PATH: envalid_1.str(),
         MONGO_USER: envalid_1.str(),
-        PORT: envalid_1.port()
+        PORT: envalid_1.port(),
     });
 }
 exports.validateEnv = validateEnv;

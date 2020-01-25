@@ -10,17 +10,17 @@ class JWTManager {
         this.authConfig = authConfig;
         this.config = config;
     }
-    createToken(user_id) {
-        console.log('Creating token for ', user_id);
-        user_id = user_id + '';
-        return jwt.sign({ id: user_id, isActive: true }, this.authConfig.secret, {
-            expiresIn: 86400 // expires in 24 hours
+    createToken(userId) {
+        console.log('Creating token for ', userId);
+        // user_id = user_id + '';
+        return jwt.sign({ id: userId, isActive: true }, this.authConfig.secret, {
+            expiresIn: 86400,
         });
     }
     verifyToken(req) {
-        let token = this.createToken('hello');
+        const token = this.createToken('hello');
         console.log(token);
-        let oAuthFreeCalls = this.config.getAuthFreeEndPoints();
+        const oAuthFreeCalls = this.config.getAuthFreeEndPoints();
         // check header or url parameters or post parameters for token
         return new Promise(async (resolve, reject) => {
             if (this.config.isOAuthEnabled) {
@@ -31,11 +31,11 @@ class JWTManager {
                         reject(new AuthenticationTokenMissingException_1.AuthenticationTokenMissingException());
                     // verifies secret and checks exp
                     try {
-                        let decoded = await jwt.verify(token, this.authConfig.secret);
+                        const decoded = await jwt.verify(token, this.authConfig.secret);
                         // if everything is good, save to request for use in other routes
                         // req.userId = decoded.id;
-                        let userId = decoded['id'];
-                        let checkUserSessionResponse = await this.checkUserSession(userId, token);
+                        const userId = decoded.id;
+                        const checkUserSessionResponse = await this.checkUserSession(userId, token);
                         resolve(checkUserSessionResponse);
                     }
                     catch (e) {
@@ -50,9 +50,9 @@ class JWTManager {
                 resolve(BaseResponse_1.BaseResponse.getOAuthConfigDisabledResponse());
         });
     }
-    async checkUserSession(user_id, token) {
+    async checkUserSession(userId, token) {
         return new Promise((resolve, reject) => {
-            if (user_id != null && token != null) {
+            if (userId != null && token != null) {
                 reject(new InvalidParamsException_1.InvalidParamsException());
                 //
                 // let db = mongoose.connection;

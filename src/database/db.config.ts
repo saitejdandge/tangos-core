@@ -1,15 +1,16 @@
 export class DbConfig {
+  public mongoUri: string;
+  public options: any;
+
   private readonly mongoUser: string;
   private readonly mongoPassword: string;
   private readonly mongoPath: string;
-  public mongoUri: string;
-  public options: any;
 
   constructor(
     mongoUser: any,
     mongoPassword: any,
     mongoPath: any,
-    options: any
+    options: any,
   ) {
     this.mongoUser = mongoUser;
     this.mongoPassword = mongoPassword;

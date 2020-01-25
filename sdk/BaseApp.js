@@ -3,17 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bodyParser = require("body-parser");
 const express = require("express");
 const timeout = require("connect-timeout");
-const DBConnector_1 = require("./database/DBConnector");
-const UserController_1 = require("./controllers/UserController");
 const Config_1 = require("./Config");
-const timeoutMiddleware_1 = require("./middlewares/timeoutMiddleware");
+const UserController_1 = require("./controllers/UserController");
+const DBConnector_1 = require("./database/DBConnector");
 const authMiddleware_1 = require("./middlewares/authMiddleware");
-const pageNotFoundMiddleware_1 = require("./middlewares/pageNotFoundMiddleware");
 const checkForDBConnectionMiddleware_1 = require("./middlewares/checkForDBConnectionMiddleware");
-const loggerMiddleware_1 = require("./middlewares/loggerMiddleware");
 const errorHandlerMiddleware_1 = require("./middlewares/errorHandlerMiddleware");
+const loggerMiddleware_1 = require("./middlewares/loggerMiddleware");
+const pageNotFoundMiddleware_1 = require("./middlewares/pageNotFoundMiddleware");
+const timeoutMiddleware_1 = require("./middlewares/timeoutMiddleware");
 class BaseApp {
-    constructor(config, authConfig, dbConfig, controllers) {
+    constructor(config, authConfig, dbConfig, 
+    // tslint:disable-next-line: array-type
+    controllers) {
         this.config = config;
         this.app = express();
         this.dbConfig = dbConfig;
@@ -41,6 +43,11 @@ class BaseApp {
     getDbConfig() {
         return this.dbConfig;
     }
+    listen() {
+        this.app.listen(process.env.PORT, () => {
+            console.log(`App listening on the port ${process.env.PORT}`);
+        });
+    }
     initializeTimeoutMiddleware() {
         this.app.use(timeout('5s'));
         this.app.use(bodyParser.json());
@@ -49,11 +56,6 @@ class BaseApp {
     initializeAuthMiddleware() {
         if (this.config.isOAuthEnabled)
             this.app.use(authMiddleware_1.authMiddlware);
-    }
-    listen() {
-        this.app.listen(process.env.PORT, () => {
-            console.log(`App listening on the port ${process.env.PORT}`);
-        });
     }
     initializeDBConnectionCheckMiddleware() {
         this.app.use(checkForDBConnectionMiddleware_1.checkForDBConnectionHandler);
@@ -65,12 +67,13 @@ class BaseApp {
         this.app.use(loggerMiddleware_1.loggerMiddleware);
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({
-            extended: false
+            extended: false,
         }));
     }
     initializeErrorMiddleware() {
         this.app.use(errorHandlerMiddleware_1.errorHandlerMiddleware);
     }
+    // tslint:disable-next-line: array-type
     initializeControllers(controllers) {
         controllers.forEach(controller => {
             this.app.use('/', controller.router);

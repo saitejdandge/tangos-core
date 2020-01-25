@@ -1,7 +1,7 @@
 export class CommonEndPoints {
-  static CREATE = 'create';
-  static FIND = 'find';
-  static FIND_ONE = 'findOne';
-  static UPDATE = 'update';
-  static DELETE_DATA = 'deleteData';
+  public static CREATE = 'create';
+  public static FIND = 'find';
+  public static FIND_ONE = 'findOne';
+  public static UPDATE = 'update';
+  public static DELETE_DATA = 'deleteData';
 }

@@ -1,12 +1,12 @@
-import { BaseModel } from './base.model';
 import { Config } from '../Config';
+import { BaseModel } from './base.model';
 
 export class UserModel extends BaseModel {
-  collectionName: string = Config.collectionNames.users;
-  schema: any = UserModel.getMongoSchema({
+  public collectionName: string = Config.collectionNames.users;
+  public schema: any = UserModel.getMongoSchema({
     name: String,
     creationDate: Date,
     email: String,
-    address: JSON
+    address: JSON,
   });
 }

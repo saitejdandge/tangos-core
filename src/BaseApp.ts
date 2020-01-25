@@ -2,55 +2,38 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 
 import * as timeout from 'connect-timeout';
-import { BaseController } from './controllers/BaseController';
-import { DBConnector } from './database/DBConnector';
-import { UserController } from './controllers/UserController';
 import { AuthConfig } from './auth/AuthConfig';
-import { DbConfig } from './database/db.config';
 import { Config } from './Config';
-import { BasePresenter } from './presenters/BasePresenter';
-import { timeoutMiddleware } from './middlewares/timeoutMiddleware';
+import { BaseController } from './controllers/BaseController';
+import { UserController } from './controllers/UserController';
+import { DbConfig } from './database/db.config';
+import { DBConnector } from './database/DBConnector';
 import { authMiddlware } from './middlewares/authMiddleware';
-import { pageNotFoundMiddleware } from './middlewares/pageNotFoundMiddleware';
 import { checkForDBConnectionHandler } from './middlewares/checkForDBConnectionMiddleware';
-import { loggerMiddleware } from './middlewares/loggerMiddleware';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware';
+import { loggerMiddleware } from './middlewares/loggerMiddleware';
+import { pageNotFoundMiddleware } from './middlewares/pageNotFoundMiddleware';
+import { timeoutMiddleware } from './middlewares/timeoutMiddleware';
+import { BasePresenter } from './presenters/BasePresenter';
 
 export class BaseApp {
-  private static app: BaseApp;
-  private readonly config: Config;
 
   public static getInstance() {
     return this.app;
   }
-
-  public getAuthConfig() {
-    return this.authConfig;
-  }
-
-  public getConfig() {
-    return this.config;
-  }
-
-  public getDbConfig() {
-    return this.dbConfig;
-  }
+  private static app: BaseApp;
 
   public app: express.Application;
+  private readonly config: Config;
   private readonly dbConfig: DbConfig;
   private readonly authConfig: AuthConfig;
-
-  private initializeTimeoutMiddleware() {
-    this.app.use(timeout('5s'));
-    this.app.use(bodyParser.json());
-    this.app.use(timeoutMiddleware);
-  }
 
   constructor(
     config: Config,
     authConfig: AuthConfig,
     dbConfig: DbConfig,
-    controllers: BaseController<BasePresenter>[]
+    // tslint:disable-next-line: array-type
+    controllers: BaseController<BasePresenter>[],
   ) {
     this.config = config;
     this.app = express();
@@ -68,14 +51,32 @@ export class BaseApp {
     BaseApp.app = this;
   }
 
-  private initializeAuthMiddleware() {
-    if (this.config.isOAuthEnabled) this.app.use(authMiddlware);
+  public getAuthConfig() {
+    return this.authConfig;
+  }
+
+  public getConfig() {
+    return this.config;
+  }
+
+  public getDbConfig() {
+    return this.dbConfig;
   }
 
   public listen() {
     this.app.listen(process.env.PORT, () => {
       console.log(`App listening on the port ${process.env.PORT}`);
     });
+  }
+
+  private initializeTimeoutMiddleware() {
+    this.app.use(timeout('5s'));
+    this.app.use(bodyParser.json());
+    this.app.use(timeoutMiddleware);
+  }
+
+  private initializeAuthMiddleware() {
+    if (this.config.isOAuthEnabled) this.app.use(authMiddlware);
   }
 
   private initializeDBConnectionCheckMiddleware() {
@@ -91,8 +92,8 @@ export class BaseApp {
     this.app.use(bodyParser.json());
     this.app.use(
       bodyParser.urlencoded({
-        extended: false
-      })
+        extended: false,
+      }),
     );
   }
 
@@ -100,6 +101,7 @@ export class BaseApp {
     this.app.use(errorHandlerMiddleware);
   }
 
+  // tslint:disable-next-line: array-type
   private initializeControllers(controllers: BaseController<BasePresenter>[]) {
     controllers.forEach(controller => {
       this.app.use('/', controller.router);
@@ -117,7 +119,7 @@ export class BaseApp {
   private initializeBaseControllers() {
     this.app.use(
       '/',
-      new UserController('/' + Config.collectionNames.users).router
+      new UserController('/' + Config.collectionNames.users).router,
     );
   }
 }

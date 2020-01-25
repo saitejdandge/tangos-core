@@ -6,8 +6,8 @@ import { DBConnectionException } from '../exceptions/DBConnectionException';
 export function checkForDBConnectionHandler(
   request: express.Request,
   response: express.Response,
-  next: express.NextFunction
+  next: express.NextFunction,
 ) {
-  if (mongoose.connection.readyState != 1) throw new DBConnectionException();
+  if (mongoose.connection.readyState !== 1) throw new DBConnectionException();
   else next();
 }

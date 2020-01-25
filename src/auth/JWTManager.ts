@@ -7,26 +7,26 @@ import { BaseResponse } from '../responses/BaseResponse';
 import { AuthConfig } from './AuthConfig';
 
 export class JWTManager {
-  authConfig: AuthConfig;
-  config: Config;
+  public authConfig: AuthConfig;
+  public config: Config;
 
   constructor(authConfig: AuthConfig, config: Config) {
     this.authConfig = authConfig;
     this.config = config;
   }
 
-  createToken(user_id: string): string {
-    console.log('Creating token for ', user_id);
-    user_id = user_id + '';
-    return jwt.sign({ id: user_id, isActive: true }, this.authConfig.secret, {
-      expiresIn: 86400 // expires in 24 hours
+  public createToken(userId: string): string {
+    console.log('Creating token for ', userId);
+    // user_id = user_id + '';
+    return jwt.sign({ id: userId, isActive: true }, this.authConfig.secret, {
+      expiresIn: 86400, // expires in 24 hours
     });
   }
 
-  verifyToken(req: any): Promise<BaseResponse> {
-    let token = this.createToken('hello');
+  public verifyToken(req: any): Promise<BaseResponse> {
+    const token = this.createToken('hello');
     console.log(token);
-    let oAuthFreeCalls = this.config.getAuthFreeEndPoints();
+    const oAuthFreeCalls = this.config.getAuthFreeEndPoints();
     // check header or url parameters or post parameters for token
     return new Promise(async (resolve, reject) => {
       if (this.config.isOAuthEnabled) {
@@ -37,13 +37,13 @@ export class JWTManager {
           // verifies secret and checks exp
 
           try {
-            let decoded: any = await jwt.verify(token, this.authConfig.secret);
+            const decoded: any = await jwt.verify(token, this.authConfig.secret);
             // if everything is good, save to request for use in other routes
             // req.userId = decoded.id;
-            let userId = decoded['id'];
-            let checkUserSessionResponse = await this.checkUserSession(
+            const userId = decoded.id;
+            const checkUserSessionResponse = await this.checkUserSession(
               userId,
-              token
+              token,
             );
             resolve(checkUserSessionResponse);
           } catch (e) {
@@ -56,11 +56,11 @@ export class JWTManager {
   }
 
   private async checkUserSession(
-    user_id: string,
-    token: string
+    userId: string,
+    token: string,
   ): Promise<BaseResponse> {
     return new Promise((resolve, reject) => {
-      if (user_id != null && token != null) {
+      if (userId != null && token != null) {
         reject(new InvalidParamsException());
         //
         // let db = mongoose.connection;
