@@ -2,7 +2,6 @@ language: node_js
 node_js:
   - lts/*
 scripts:
-  "npm run dummy"
   "npm run lint"
 deploy:
   edge: true
