@@ -3,7 +3,7 @@ https://appening.github.io/Tangos/
 
 <img src="https://travis-ci.com/appening/tangos-core.svg?token=Yn7mCw2maRGo8ANAgDa6&branch=master"/>
 
-[![NPM](https://nodei.co/npm/<package>.png)](https://nodei.co/npm/<package>/)
+[![NPM](https://nodei.co/npm/tangos-core.png)](https://nodei.co/npm/tangos-core/)
 
 Broilerplate code Node MongoDB server written in TypeScript
 
