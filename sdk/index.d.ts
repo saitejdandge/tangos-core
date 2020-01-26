@@ -13,11 +13,13 @@ import { InvalidParamsException } from './exceptions/InvalidParamsException';
 import { PageNotFoundException } from './exceptions/PageNotFoundException';
 import { StandardException } from './exceptions/StandardException';
 import { TimeoutException } from './exceptions/TimeoutException';
+import { validationMiddleware } from './middlewares/validationMiddleware';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 import { BaseApp } from './BaseApp';
 import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
+import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
 import { validateEnv } from './utils/validateEnv';
 declare const _default: {
@@ -26,6 +28,7 @@ declare const _default: {
     BaseController: typeof BaseController;
     DbConfig: typeof DbConfig;
     DBConnector: typeof DBConnector;
+    validationMiddleware: typeof validationMiddleware;
     BaseDTO: typeof BaseDTO;
     IdDTO: typeof IdDTO;
     AuthenticationTokenMissingException: typeof AuthenticationTokenMissingException;
@@ -38,6 +41,7 @@ declare const _default: {
     TimeoutException: typeof TimeoutException;
     BaseModel: typeof BaseModel;
     CustomRoute: typeof CustomRoute;
+    BaseResponse: typeof BaseResponse;
     BasePresenter: typeof BasePresenter;
     CommonEndPoints: typeof CommonEndPoints;
     validateEnv: typeof validateEnv;

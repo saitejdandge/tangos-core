@@ -15,7 +15,7 @@ import { InvalidParamsException } from './exceptions/InvalidParamsException';
 import { PageNotFoundException } from './exceptions/PageNotFoundException';
 import { StandardException } from './exceptions/StandardException';
 import { TimeoutException } from './exceptions/TimeoutException';
-
+import { validationMiddleware } from './middlewares/validationMiddleware';
 import { BaseInterface } from './models/base.interface';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
@@ -33,6 +33,7 @@ export default{
   BaseController,
   DbConfig,
   DBConnector,
+  validationMiddleware,
   BaseDTO,
   IdDTO,
   AuthenticationTokenMissingException,
@@ -46,6 +47,7 @@ export default{
 // BaseInterface,
   BaseModel,
   CustomRoute,
+  BaseResponse,
   BasePresenter,
   CommonEndPoints,
   validateEnv,

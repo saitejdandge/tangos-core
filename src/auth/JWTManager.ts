@@ -25,7 +25,6 @@ export class JWTManager {
 
   public verifyToken(req: any): Promise<BaseResponse> {
     const token = this.createToken('hello');
-    console.log(token);
     const oAuthFreeCalls = this.config.getAuthFreeEndPoints();
     // check header or url parameters or post parameters for token
     return new Promise(async (resolve, reject) => {

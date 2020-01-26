@@ -8,10 +8,7 @@ class BaseResponse {
         this.data = data;
     }
     static getSuccessResponse(data, message) {
-        if (message != null)
-            return new BaseResponse(1, strings_1.default.success, data);
-        else
-            return new BaseResponse(1, message, data);
+        return new BaseResponse(1, message != null ? message : strings_1.default.success, data);
     }
     static getEmptyResponse() {
         return new BaseResponse(1, strings_1.default.noDataFound, null);
