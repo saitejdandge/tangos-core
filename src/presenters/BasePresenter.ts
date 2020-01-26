@@ -17,7 +17,7 @@ export class BasePresenter {
           .getModelSchema()
           .find(query != null ? JSON.parse(query) : {});
         if (data != null && data.length !== 0) {
-          resolve(BaseResponse.getSuccessResponse(data));
+          resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data))));
         } else resolve(BaseResponse.getEmptyResponse());
       } catch (e) {
         reject(new StandardException());
@@ -31,7 +31,7 @@ export class BasePresenter {
         .getModelSchema()
         .findOne(query != null ? JSON.parse(query) : {})
         .then(data => {
-          if (data != null) resolve(BaseResponse.getSuccessResponse(data));
+          if (data != null) resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data))));
           else resolve(BaseResponse.getEmptyResponse());
         });
     });
@@ -50,7 +50,7 @@ export class BasePresenter {
           )
           // tslint:disable-next-line: no-shadowed-variable
           .then(data => {
-            if (data != null) resolve(BaseResponse.getSuccessResponse(data));
+            if (data != null)resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data))));
             else reject(new StandardException());
           });
       } else reject(new InvalidParamsException());
@@ -65,8 +65,8 @@ export class BasePresenter {
         );
         try {
           const savedPost = await createdPost.save();
-          if (savedPost != null) {
-            resolve(BaseResponse.getSuccessResponse(savedPost));
+          if (savedPost != null) { 
+          resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(savedPost)))); 
           } else reject(new StandardException());
         } catch (e) {
           reject(new StandardException());
@@ -83,7 +83,7 @@ export class BasePresenter {
         .deleteMany(query != null ? JSON.parse(query) : {})
         .then(successResponse => {
           if (successResponse) {
-            resolve(BaseResponse.getSuccessResponse(successResponse));
+            resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(successResponse))));
           } else reject(new StandardException());
         });
     });
