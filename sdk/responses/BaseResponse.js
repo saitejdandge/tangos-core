@@ -1,28 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const strings_1 = require("../constants/strings");
 class BaseResponse {
     constructor(result, message, data) {
         this.result = result;
         this.message = message;
         this.data = data;
     }
-    static getSuccessResponse(data) {
-        return new BaseResponse(1, 'Success', data);
+    static getSuccessResponse(data, message) {
+        if (message != null)
+            return new BaseResponse(1, strings_1.default.success, data);
+        else
+            return new BaseResponse(1, message, data);
     }
     static getEmptyResponse() {
-        return new BaseResponse(1, 'No data found', null);
+        return new BaseResponse(1, strings_1.default.noDataFound, null);
     }
     static getOAuthFreeEndpointResponse() {
-        return new BaseResponse(1, 'OAuth Free called', null);
+        return new BaseResponse(1, strings_1.default.oAuthFreeCalled, null);
     }
     static getOAuthVerifiedResponse() {
-        return new BaseResponse(1, 'OAuth Verified', null);
+        return new BaseResponse(1, strings_1.default.oAuthVerified, null);
     }
     static getOAuthConfigDisabledResponse() {
-        return new BaseResponse(1, 'OAuth config disabled', null);
+        return new BaseResponse(1, strings_1.default.oAuthConfigDisabled, null);
     }
     static getAuthenticationSuccessResponse(userId) {
-        return new BaseResponse(1, userId + 'Authenticated successfully', userId);
+        return new BaseResponse(1, userId + strings_1.default.authSuccessful, userId);
     }
 }
 exports.BaseResponse = BaseResponse;

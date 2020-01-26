@@ -1,27 +1,33 @@
+import strings from "../constants/strings";
+
 export class BaseResponse {
 
-  public static getSuccessResponse(data: any): BaseResponse {
-    return new BaseResponse(1, 'Success', data);
+
+  public static getSuccessResponse(data: any, message: any): BaseResponse {
+    if (message != null)
+      return new BaseResponse(1, strings.success, data);
+    else
+      return new BaseResponse(1, message, data);
   }
 
   public static getEmptyResponse(): BaseResponse {
-    return new BaseResponse(1, 'No data found', null);
+    return new BaseResponse(1, strings.noDataFound, null);
   }
 
   public static getOAuthFreeEndpointResponse(): BaseResponse {
-    return new BaseResponse(1, 'OAuth Free called', null);
+    return new BaseResponse(1, strings.oAuthFreeCalled, null);
   }
 
   public static getOAuthVerifiedResponse(): BaseResponse {
-    return new BaseResponse(1, 'OAuth Verified', null);
+    return new BaseResponse(1, strings.oAuthVerified, null);
   }
 
   public static getOAuthConfigDisabledResponse(): BaseResponse {
-    return new BaseResponse(1, 'OAuth config disabled', null);
+    return new BaseResponse(1, strings.oAuthConfigDisabled, null);
   }
 
   public static getAuthenticationSuccessResponse(userId: string): BaseResponse {
-    return new BaseResponse(1, userId + 'Authenticated successfully', userId);
+    return new BaseResponse(1, userId + strings.authSuccessful, userId);
   }
   public result: number;
   public message: string;

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const InvalidParamsException_1 = require("../exceptions/InvalidParamsException");
 const StandardException_1 = require("../exceptions/StandardException");
 const BaseResponse_1 = require("../responses/BaseResponse");
+const strings_1 = require("../constants/strings");
 class BasePresenter {
     constructor(baseModel) {
         this.find = (query) => {
@@ -12,7 +13,7 @@ class BasePresenter {
                         .getModelSchema()
                         .find(query != null ? JSON.parse(query) : {});
                     if (data != null && data.length !== 0) {
-                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data))));
+                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data, strings_1.default.success))));
                     }
                     else
                         resolve(BaseResponse_1.BaseResponse.getEmptyResponse());
@@ -29,7 +30,7 @@ class BasePresenter {
                     .findOne(query != null ? JSON.parse(query) : {})
                     .then(data => {
                     if (data != null)
-                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data))));
+                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data, strings_1.default.success))));
                     else
                         resolve(BaseResponse_1.BaseResponse.getEmptyResponse());
                 });
@@ -45,7 +46,7 @@ class BasePresenter {
                         // tslint:disable-next-line: no-shadowed-variable
                         .then(data => {
                         if (data != null)
-                            resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data))));
+                            resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data, strings_1.default.success))));
                         else
                             reject(new StandardException_1.StandardException());
                     });
@@ -61,7 +62,7 @@ class BasePresenter {
                     try {
                         const savedPost = await createdPost.save();
                         if (savedPost != null) {
-                            resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(savedPost))));
+                            resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(savedPost, strings_1.default.success))));
                         }
                         else
                             reject(new StandardException_1.StandardException());
@@ -82,7 +83,7 @@ class BasePresenter {
                     .deleteMany(query != null ? JSON.parse(query) : {})
                     .then(successResponse => {
                     if (successResponse) {
-                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(successResponse))));
+                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(successResponse, strings_1.default.success))));
                     }
                     else
                         reject(new StandardException_1.StandardException());

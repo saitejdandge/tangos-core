@@ -2,6 +2,7 @@ import { InvalidParamsException } from '../exceptions/InvalidParamsException';
 import { StandardException } from '../exceptions/StandardException';
 import { BaseModel } from '../models/base.model';
 import { BaseResponse } from '../responses/BaseResponse';
+import strings from '../constants/strings';
 
 export class BasePresenter {
   public baseModel: BaseModel;
@@ -17,7 +18,7 @@ export class BasePresenter {
           .getModelSchema()
           .find(query != null ? JSON.parse(query) : {});
         if (data != null && data.length !== 0) {
-          resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data))));
+          resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data,strings.success))));
         } else resolve(BaseResponse.getEmptyResponse());
       } catch (e) {
         reject(new StandardException());
@@ -31,7 +32,7 @@ export class BasePresenter {
         .getModelSchema()
         .findOne(query != null ? JSON.parse(query) : {})
         .then(data => {
-          if (data != null) resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data))));
+          if (data != null) resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data,strings.success))));
           else resolve(BaseResponse.getEmptyResponse());
         });
     });
@@ -50,7 +51,7 @@ export class BasePresenter {
           )
           // tslint:disable-next-line: no-shadowed-variable
           .then(data => {
-            if (data != null)resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data))));
+            if (data != null)resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data,strings.success))));
             else reject(new StandardException());
           });
       } else reject(new InvalidParamsException());
@@ -66,7 +67,7 @@ export class BasePresenter {
         try {
           const savedPost = await createdPost.save();
           if (savedPost != null) { 
-          resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(savedPost)))); 
+          resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(savedPost,strings.success)))); 
           } else reject(new StandardException());
         } catch (e) {
           reject(new StandardException());
@@ -83,7 +84,7 @@ export class BasePresenter {
         .deleteMany(query != null ? JSON.parse(query) : {})
         .then(successResponse => {
           if (successResponse) {
-            resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(successResponse))));
+            resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(successResponse,strings.success))));
           } else reject(new StandardException());
         });
     });
