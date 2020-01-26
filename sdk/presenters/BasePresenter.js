@@ -12,7 +12,7 @@ class BasePresenter {
                         .getModelSchema()
                         .find(query != null ? JSON.parse(query) : {});
                     if (data != null && data.length !== 0) {
-                        resolve(BaseResponse_1.BaseResponse.getSuccessResponse(data));
+                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data))));
                     }
                     else
                         resolve(BaseResponse_1.BaseResponse.getEmptyResponse());
@@ -29,7 +29,7 @@ class BasePresenter {
                     .findOne(query != null ? JSON.parse(query) : {})
                     .then(data => {
                     if (data != null)
-                        resolve(BaseResponse_1.BaseResponse.getSuccessResponse(data));
+                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data))));
                     else
                         resolve(BaseResponse_1.BaseResponse.getEmptyResponse());
                 });
@@ -45,7 +45,7 @@ class BasePresenter {
                         // tslint:disable-next-line: no-shadowed-variable
                         .then(data => {
                         if (data != null)
-                            resolve(BaseResponse_1.BaseResponse.getSuccessResponse(data));
+                            resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data))));
                         else
                             reject(new StandardException_1.StandardException());
                     });
@@ -61,7 +61,7 @@ class BasePresenter {
                     try {
                         const savedPost = await createdPost.save();
                         if (savedPost != null) {
-                            resolve(BaseResponse_1.BaseResponse.getSuccessResponse(savedPost));
+                            resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(savedPost))));
                         }
                         else
                             reject(new StandardException_1.StandardException());
@@ -82,7 +82,7 @@ class BasePresenter {
                     .deleteMany(query != null ? JSON.parse(query) : {})
                     .then(successResponse => {
                     if (successResponse) {
-                        resolve(BaseResponse_1.BaseResponse.getSuccessResponse(successResponse));
+                        resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(successResponse))));
                     }
                     else
                         reject(new StandardException_1.StandardException());
