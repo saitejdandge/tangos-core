@@ -4,10 +4,7 @@ export class BaseResponse {
 
 
   public static getSuccessResponse(data: any, message: any): BaseResponse {
-    if (message != null)
-      return new BaseResponse(1, strings.success, data);
-    else
-      return new BaseResponse(1, message, data);
+      return new BaseResponse(1, message!=null?message:strings.success, data);
   }
 
   public static getEmptyResponse(): BaseResponse {
