@@ -1,10 +1,9 @@
-import strings from "../constants/strings";
+import strings from '../constants/strings';
 
 export class BaseResponse {
 
-
   public static getSuccessResponse(data: any, message: any): BaseResponse {
-      return new BaseResponse(1, message!=null?message:strings.success, data);
+    return new BaseResponse(1, message != null ? message :strings.success, data);
   }
 
   public static getEmptyResponse(): BaseResponse {

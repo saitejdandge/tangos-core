@@ -20,6 +20,7 @@ import { BaseInterface } from './models/base.interface';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 
+import * as mongoose from 'mongoose';
 import { BaseApp } from './BaseApp';
 import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
@@ -27,7 +28,11 @@ import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
 import { validateEnv } from './utils/validateEnv';
 
-export default{
+const getDB = () => {
+  return mongoose.connection;
+};
+export default {
+  getDB,
   AuthConfig,
   JWTManager,
   BaseController,
@@ -44,7 +49,7 @@ export default{
   PageNotFoundException,
   StandardException,
   TimeoutException,
-// BaseInterface,
+  // BaseInterface,
   BaseModel,
   CustomRoute,
   BaseResponse,

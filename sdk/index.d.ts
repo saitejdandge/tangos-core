@@ -16,6 +16,7 @@ import { TimeoutException } from './exceptions/TimeoutException';
 import { validationMiddleware } from './middlewares/validationMiddleware';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
+import * as mongoose from 'mongoose';
 import { BaseApp } from './BaseApp';
 import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
@@ -23,6 +24,7 @@ import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
 import { validateEnv } from './utils/validateEnv';
 declare const _default: {
+    getDB: () => mongoose.Connection;
     AuthConfig: typeof AuthConfig;
     JWTManager: typeof JWTManager;
     BaseController: typeof BaseController;

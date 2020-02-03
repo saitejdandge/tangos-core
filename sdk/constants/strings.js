@@ -6,5 +6,5 @@ exports.default = {
     oAuthFreeCalled: 'OAuth Free called',
     oAuthVerified: 'OAuth Verified',
     oAuthConfigDisabled: 'OAuth config disabled',
-    authSuccessful: 'Authenticated successfully'
+    authSuccessful: 'Authenticated successfully',
 };

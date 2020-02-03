@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const strings_1 = require("../constants/strings");
 const InvalidParamsException_1 = require("../exceptions/InvalidParamsException");
 const StandardException_1 = require("../exceptions/StandardException");
 const BaseResponse_1 = require("../responses/BaseResponse");
-const strings_1 = require("../constants/strings");
 class BasePresenter {
     constructor(baseModel) {
         this.find = (query) => {
