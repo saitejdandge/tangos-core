@@ -5,6 +5,9 @@ class DBConnector {
     constructor(dbConfig) {
         this.dbConfig = dbConfig;
     }
+    static getDBInstance() {
+        return mongoose.connection;
+    }
     connect() {
         const db = mongoose.connection;
         const uri = this.dbConfig.mongoUri;

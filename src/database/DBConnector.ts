@@ -2,6 +2,10 @@ import * as mongoose from 'mongoose';
 import { DbConfig } from './db.config';
 
 export class DBConnector {
+
+  public static getDBInstance(): mongoose.Connection {
+    return mongoose.connection;
+  }
   private dbConfig: DbConfig;
 
   constructor(dbConfig: DbConfig) {

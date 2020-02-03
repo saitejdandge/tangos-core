@@ -18,19 +18,13 @@ const TimeoutException_1 = require("./exceptions/TimeoutException");
 const validationMiddleware_1 = require("./middlewares/validationMiddleware");
 const base_model_1 = require("./models/base.model");
 const CustomRoute_1 = require("./models/CustomRoute");
-const mongoose = require("mongoose");
 const BaseApp_1 = require("./BaseApp");
 const Config_1 = require("./Config");
 const BasePresenter_1 = require("./presenters/BasePresenter");
 const BaseResponse_1 = require("./responses/BaseResponse");
 const CommonEndPoints_1 = require("./utils/CommonEndPoints");
 const validateEnv_1 = require("./utils/validateEnv");
-function getDB() {
-    return mongoose.connection;
-}
-;
 exports.default = {
-    getDB,
     AuthConfig: AuthConfig_1.AuthConfig,
     JWTManager: JWTManager_1.JWTManager,
     BaseController: BaseController_1.BaseController,

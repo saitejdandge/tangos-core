@@ -28,11 +28,7 @@ import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
 import { validateEnv } from './utils/validateEnv';
 
-function getDB(): mongoose.Connection {
-  return mongoose.connection;
-};
 export default {
-  getDB,
   AuthConfig,
   JWTManager,
   BaseController,
