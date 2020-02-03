@@ -6,8 +6,8 @@ export class BaseResponse {
     return new BaseResponse(1, message != null ? message : strings.success, data);
   }
 
-  public static getFailureResponse(message: any): BaseResponse {
-    return new BaseResponse(0, message != null ? message : strings.success, null);
+  public static getFailureResponse(): BaseResponse {
+    return new BaseResponse(0, strings.standardErrorMessage, null);
   }
   public static getEmptyResponse(): BaseResponse {
     return new BaseResponse(1, strings.noDataFound, null);

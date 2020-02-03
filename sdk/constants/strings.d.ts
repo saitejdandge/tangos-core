@@ -5,5 +5,6 @@ declare const _default: {
     oAuthVerified: string;
     oAuthConfigDisabled: string;
     authSuccessful: string;
+    standardErrorMessage: string;
 };
 export default _default;

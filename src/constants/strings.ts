@@ -5,4 +5,5 @@ export default{
   oAuthVerified:'OAuth Verified',
   oAuthConfigDisabled:'OAuth config disabled',
   authSuccessful:'Authenticated successfully',
+  standardErrorMessage:'Something went wrong, please try again.',
 };
