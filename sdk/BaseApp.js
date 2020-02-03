@@ -49,7 +49,7 @@ class BaseApp {
         });
     }
     initializeTimeoutMiddleware() {
-        this.app.use(timeout('5s'));
+        this.app.use(timeout('10s'));
         this.app.use(bodyParser.json());
         this.app.use(timeoutMiddleware_1.timeoutMiddleware);
     }
