@@ -23,8 +23,9 @@ import { BasePresenter } from './presenters/BasePresenter';
 import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
 import { validateEnv } from './utils/validateEnv';
+declare function getDB(): mongoose.Connection;
 declare const _default: {
-    getDB: () => mongoose.Connection;
+    getDB: typeof getDB;
     AuthConfig: typeof AuthConfig;
     JWTManager: typeof JWTManager;
     BaseController: typeof BaseController;

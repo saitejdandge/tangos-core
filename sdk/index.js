@@ -25,9 +25,10 @@ const BasePresenter_1 = require("./presenters/BasePresenter");
 const BaseResponse_1 = require("./responses/BaseResponse");
 const CommonEndPoints_1 = require("./utils/CommonEndPoints");
 const validateEnv_1 = require("./utils/validateEnv");
-const getDB = () => {
+function getDB() {
     return mongoose.connection;
-};
+}
+;
 exports.default = {
     getDB,
     AuthConfig: AuthConfig_1.AuthConfig,
