@@ -10,6 +10,9 @@ class BaseResponse {
     static getSuccessResponse(data, message) {
         return new BaseResponse(1, message != null ? message : strings_1.default.success, data);
     }
+    static getFailureResponse(message) {
+        return new BaseResponse(0, message != null ? message : strings_1.default.success, null);
+    }
     static getEmptyResponse() {
         return new BaseResponse(1, strings_1.default.noDataFound, null);
     }
