@@ -1,23 +1,21 @@
 
-import {BaseModel} from "../src/models/base.model";
-import {BaseResponse} from "../src/responses/BaseResponse";
-import {BasePresenter} from "../src/presenters/BasePresenter";
-
+import { BaseModel } from '../src/models/base.model';
+import { BasePresenter } from '../src/presenters/BasePresenter';
+import { BaseResponse } from '../src/responses/BaseResponse';
 
 class BookPresenter extends BasePresenter {
 
-    constructor(baseModel: BaseModel) {
-        super(baseModel);
+  constructor(baseModel: BaseModel) {
+    super(baseModel);
 
-    }
+  }
 
-    public test(): Promise<BaseResponse> {
+  public test(): Promise<BaseResponse> {
 
-        return new Promise<BaseResponse>((resolve => {
-            resolve(BaseResponse.getSuccessResponse(null));
-        }));
-    }
-
+    return new Promise<BaseResponse>((resolve => {
+      resolve(BaseResponse.getSuccessResponse(null, ''));
+    }));
+  }
 
 }
 

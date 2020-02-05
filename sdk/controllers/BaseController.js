@@ -7,10 +7,14 @@ const InvalidHandlerException_1 = require("../exceptions/InvalidHandlerException
 const validationMiddleware_1 = require("../middlewares/validationMiddleware");
 const CommonEndPoints_1 = require("../utils/CommonEndPoints");
 class BaseController {
-    constructor(endPoint) {
+    constructor(endPoint, openCrudEndPoints) {
         this.router = express.Router();
         this.endPoint = endPoint;
-        this.initializeRoutes();
+        this.basePresenter = this.attachPresenter();
+        if (openCrudEndPoints) {
+            this.openCRUDRoutes();
+        }
+        this.openCustomRoutes();
     }
     static attachBaseMiddlewares(middlewares) {
         const baseMiddlewares = [validationMiddleware_1.validationMiddleware(baseDTO_1.BaseDTO, true)];
@@ -25,14 +29,30 @@ class BaseController {
     getPresenter() {
         return this.basePresenter;
     }
+    openCreateRoute(...middlewares) {
+        this.addRoute(CommonEndPoints_1.CommonEndPoints.CREATE, this.create.bind(this), BaseController.attachBaseMiddlewares([validationMiddleware_1.validationMiddleware(dataDTO_1.DataDTO), middlewares]));
+    }
+    openFindRoute(...middlewares) {
+        this.addRoute(CommonEndPoints_1.CommonEndPoints.FIND, this.find.bind(this), BaseController.attachBaseMiddlewares([middlewares]));
+    }
+    openFindOneRoute(...middlewares) {
+        this.addRoute(CommonEndPoints_1.CommonEndPoints.FIND_ONE, this.findOne.bind(this), BaseController.attachBaseMiddlewares([middlewares]));
+    }
+    openUpdateRoute(...middlewares) {
+        this.addRoute(CommonEndPoints_1.CommonEndPoints.UPDATE, this.update.bind(this), BaseController.attachBaseMiddlewares([validationMiddleware_1.validationMiddleware(dataDTO_1.DataDTO), middlewares]));
+    }
+    openDeleteRoute(...middlewares) {
+        this.addRoute(CommonEndPoints_1.CommonEndPoints.DELETE_DATA, this.deleteData.bind(this), BaseController.attachBaseMiddlewares([middlewares]));
+    }
     // mapping router with functions
-    initializeRoutes() {
-        this.basePresenter = this.attachPresenter();
-        this.addRoute(CommonEndPoints_1.CommonEndPoints.CREATE, this.create.bind(this), BaseController.attachBaseMiddlewares([validationMiddleware_1.validationMiddleware(dataDTO_1.DataDTO)]));
-        this.addRoute(CommonEndPoints_1.CommonEndPoints.FIND, this.find.bind(this), BaseController.attachBaseMiddlewares([]));
-        this.addRoute(CommonEndPoints_1.CommonEndPoints.FIND_ONE, this.findOne.bind(this), BaseController.attachBaseMiddlewares([]));
-        this.addRoute(CommonEndPoints_1.CommonEndPoints.UPDATE, this.update.bind(this), BaseController.attachBaseMiddlewares([validationMiddleware_1.validationMiddleware(dataDTO_1.DataDTO)]));
-        this.addRoute(CommonEndPoints_1.CommonEndPoints.DELETE_DATA, this.deleteData.bind(this), BaseController.attachBaseMiddlewares([]));
+    openCRUDRoutes() {
+        this.openCreateRoute();
+        this.openFindRoute();
+        this.openFindOneRoute();
+        this.openUpdateRoute();
+        this.openDeleteRoute();
+    }
+    openCustomRoutes() {
         if (this.attachCustomRoutes() != null) {
             // tslint:disable-next-line: prefer-for-of
             for (let i = 0; i < this.attachCustomRoutes().length; i = i + 1) {

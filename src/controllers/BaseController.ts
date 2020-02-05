@@ -22,9 +22,13 @@ export abstract class BaseController<BP extends BasePresenter> {
   // @ts-ignore
   private basePresenter: BP;
 
-  protected constructor(endPoint: string) {
+  protected constructor(endPoint: string, openCrudEndPoints: boolean) {
     this.endPoint = endPoint;
-    this.initializeRoutes();
+    this.basePresenter = this.attachPresenter();
+    if (openCrudEndPoints) {
+      this.openCRUDRoutes();
+    }
+    this.openCustomRoutes();
   }
 
   public abstract attachPresenter(): BP;
@@ -35,35 +39,54 @@ export abstract class BaseController<BP extends BasePresenter> {
     return this.basePresenter;
   }
 
-  // mapping router with functions
-  private initializeRoutes() {
-    this.basePresenter = this.attachPresenter();
+  public openCreateRoute(...middlewares: any[]) {
     this.addRoute(
       CommonEndPoints.CREATE,
       this.create.bind(this),
-      BaseController.attachBaseMiddlewares([validationMiddleware(DataDTO)]),
+      BaseController.attachBaseMiddlewares([validationMiddleware(DataDTO), middlewares]),
     );
+  }
+  public openFindRoute(...middlewares: any[]) {
     this.addRoute(
       CommonEndPoints.FIND,
       this.find.bind(this),
-      BaseController.attachBaseMiddlewares([]),
+      BaseController.attachBaseMiddlewares([middlewares]),
     );
+  }
+
+  public openFindOneRoute(...middlewares: any[]) {
     this.addRoute(
       CommonEndPoints.FIND_ONE,
       this.findOne.bind(this),
-      BaseController.attachBaseMiddlewares([]),
+      BaseController.attachBaseMiddlewares([middlewares]),
     );
+  }
+
+  public openUpdateRoute(...middlewares: any[]) {
     this.addRoute(
       CommonEndPoints.UPDATE,
       this.update.bind(this),
-      BaseController.attachBaseMiddlewares([validationMiddleware(DataDTO)]),
+      BaseController.attachBaseMiddlewares([validationMiddleware(DataDTO), middlewares]),
     );
+  }
+
+  public openDeleteRoute(...middlewares: any[]) {
     this.addRoute(
       CommonEndPoints.DELETE_DATA,
       this.deleteData.bind(this),
-      BaseController.attachBaseMiddlewares([]),
+      BaseController.attachBaseMiddlewares([middlewares]),
     );
+  }
+  // mapping router with functions
+  private openCRUDRoutes() {
+    this.openCreateRoute();
+    this.openFindRoute();
+    this.openFindOneRoute();
+    this.openUpdateRoute();
+    this.openDeleteRoute();
+  }
 
+  private openCustomRoutes() {
     if (this.attachCustomRoutes() != null) {
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < this.attachCustomRoutes().length; i = i + 1) {

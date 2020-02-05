@@ -5,7 +5,7 @@ import { BaseController } from './BaseController';
 
 export class UserController extends BaseController<UserPresenter> {
   public constructor(props: string) {
-    super(props);
+    super(props, true);
   }
 
   public attachCustomRoutes(): CustomRoute[] {

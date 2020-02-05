@@ -5,7 +5,7 @@ const UserPresenter_1 = require("../presenters/UserPresenter");
 const BaseController_1 = require("./BaseController");
 class UserController extends BaseController_1.BaseController {
     constructor(props) {
-        super(props);
+        super(props, true);
     }
     attachCustomRoutes() {
         return [];
