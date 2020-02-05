@@ -19,7 +19,7 @@ function validationMiddleware(type, skipMissingProperties = false) {
     };
 }
 exports.validationMiddleware = validationMiddleware;
-function validateFieldMiddleware(type, skipMissingProperties = false, field) {
+function validateFieldMiddleware(type, field, skipMissingProperties = false) {
     return (req, res, next) => {
         class_validator_1.validate(class_transformer_1.plainToClass(type, JSON.parse(req.body[field])), { skipMissingProperties }).then((errors) => {
             if (errors && errors.length > 0) {
