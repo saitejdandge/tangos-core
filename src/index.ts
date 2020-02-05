@@ -15,12 +15,10 @@ import { InvalidParamsException } from './exceptions/InvalidParamsException';
 import { PageNotFoundException } from './exceptions/PageNotFoundException';
 import { StandardException } from './exceptions/StandardException';
 import { TimeoutException } from './exceptions/TimeoutException';
-import { validationMiddleware } from './middlewares/validationMiddleware';
-import { BaseInterface } from './models/base.interface';
+import { validationDataMiddleware, validationMiddleware } from './middlewares/validationMiddleware';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 
-import * as mongoose from 'mongoose';
 import { BaseApp } from './BaseApp';
 import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
@@ -35,7 +33,9 @@ export default {
   DbConfig,
   DBConnector,
   validationMiddleware,
+  validationDataMiddleware,
   BaseDTO,
+  DataDTO,
   IdDTO,
   AuthenticationTokenMissingException,
   DBConnectionException,

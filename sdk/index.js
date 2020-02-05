@@ -6,6 +6,7 @@ const BaseController_1 = require("./controllers/BaseController");
 const db_config_1 = require("./database/db.config");
 const DBConnector_1 = require("./database/DBConnector");
 const baseDTO_1 = require("./dto/baseDTO");
+const dataDTO_1 = require("./dto/dataDTO");
 const IdDTO_1 = require("./dto/IdDTO");
 const AuthenticationTokenMissingException_1 = require("./exceptions/AuthenticationTokenMissingException");
 const DBConnectionException_1 = require("./exceptions/DBConnectionException");
@@ -31,7 +32,9 @@ exports.default = {
     DbConfig: db_config_1.DbConfig,
     DBConnector: DBConnector_1.DBConnector,
     validationMiddleware: validationMiddleware_1.validationMiddleware,
+    validationDataMiddleware: validationMiddleware_1.validationDataMiddleware,
     BaseDTO: baseDTO_1.BaseDTO,
+    DataDTO: dataDTO_1.DataDTO,
     IdDTO: IdDTO_1.IdDTO,
     AuthenticationTokenMissingException: AuthenticationTokenMissingException_1.AuthenticationTokenMissingException,
     DBConnectionException: DBConnectionException_1.DBConnectionException,
