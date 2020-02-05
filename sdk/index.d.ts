@@ -14,7 +14,7 @@ import { InvalidParamsException } from './exceptions/InvalidParamsException';
 import { PageNotFoundException } from './exceptions/PageNotFoundException';
 import { StandardException } from './exceptions/StandardException';
 import { TimeoutException } from './exceptions/TimeoutException';
-import { validationDataMiddleware, validationMiddleware } from './middlewares/validationMiddleware';
+import { validateFieldMiddleware, validationMiddleware } from './middlewares/validationMiddleware';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 import { BaseApp } from './BaseApp';
@@ -30,7 +30,7 @@ declare const _default: {
     DbConfig: typeof DbConfig;
     DBConnector: typeof DBConnector;
     validationMiddleware: typeof validationMiddleware;
-    validationDataMiddleware: typeof validationDataMiddleware;
+    validateFieldMiddleware: typeof validateFieldMiddleware;
     BaseDTO: typeof BaseDTO;
     DataDTO: typeof DataDTO;
     IdDTO: typeof IdDTO;

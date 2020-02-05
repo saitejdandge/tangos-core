@@ -32,7 +32,7 @@ exports.default = {
     DbConfig: db_config_1.DbConfig,
     DBConnector: DBConnector_1.DBConnector,
     validationMiddleware: validationMiddleware_1.validationMiddleware,
-    validationDataMiddleware: validationMiddleware_1.validationDataMiddleware,
+    validateFieldMiddleware: validationMiddleware_1.validateFieldMiddleware,
     BaseDTO: baseDTO_1.BaseDTO,
     DataDTO: dataDTO_1.DataDTO,
     IdDTO: IdDTO_1.IdDTO,

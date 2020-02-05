@@ -15,7 +15,7 @@ import { InvalidParamsException } from './exceptions/InvalidParamsException';
 import { PageNotFoundException } from './exceptions/PageNotFoundException';
 import { StandardException } from './exceptions/StandardException';
 import { TimeoutException } from './exceptions/TimeoutException';
-import { validationDataMiddleware, validationMiddleware } from './middlewares/validationMiddleware';
+import { validateFieldMiddleware, validationMiddleware } from './middlewares/validationMiddleware';
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 
@@ -33,7 +33,7 @@ export default {
   DbConfig,
   DBConnector,
   validationMiddleware,
-  validationDataMiddleware,
+  validateFieldMiddleware,
   BaseDTO,
   DataDTO,
   IdDTO,

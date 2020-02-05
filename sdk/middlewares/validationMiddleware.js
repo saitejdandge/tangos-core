@@ -19,9 +19,9 @@ function validationMiddleware(type, skipMissingProperties = false) {
     };
 }
 exports.validationMiddleware = validationMiddleware;
-function validationDataMiddleware(type, skipMissingProperties = false) {
+function validateFieldMiddleware(type, skipMissingProperties = false, field) {
     return (req, res, next) => {
-        class_validator_1.validate(class_transformer_1.plainToClass(type, req.body.data), { skipMissingProperties }).then((errors) => {
+        class_validator_1.validate(class_transformer_1.plainToClass(type, JSON.parse(req.body[field])), { skipMissingProperties }).then((errors) => {
             if (errors && errors.length > 0) {
                 const message = errors
                     .map((error) => error.constraints ? Object.values(error.constraints) : '')
@@ -34,4 +34,4 @@ function validationDataMiddleware(type, skipMissingProperties = false) {
         });
     };
 }
-exports.validationDataMiddleware = validationDataMiddleware;
+exports.validateFieldMiddleware = validateFieldMiddleware;

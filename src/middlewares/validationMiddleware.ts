@@ -22,12 +22,13 @@ export function validationMiddleware<T>(
     );
   };
 }
-export function validationDataMiddleware<T>(
+export function validateFieldMiddleware<T>(
   type: any,
   skipMissingProperties = false,
+  field: string,
 ): express.RequestHandler {
   return (req, res, next) => {
-    validate(plainToClass(type, req.body.data), { skipMissingProperties }).then(
+    validate(plainToClass(type, JSON.parse(req.body[field])), { skipMissingProperties }).then(
       (errors: ValidationError[]) => {
         if (errors && errors.length > 0) {
           const message = errors
