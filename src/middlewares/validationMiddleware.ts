@@ -24,8 +24,8 @@ export function validationMiddleware<T>(
 }
 export function validateFieldMiddleware<T>(
   type: any,
-  skipMissingProperties = false,
   field: string,
+  skipMissingProperties = false
 ): express.RequestHandler {
   return (req, res, next) => {
     validate(plainToClass(type, JSON.parse(req.body[field])), { skipMissingProperties }).then(
