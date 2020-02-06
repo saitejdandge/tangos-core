@@ -19,7 +19,23 @@ __decorate([
 __decorate([
     class_validator_1.IsJSON(),
     __metadata("design:type", Object)
+], BaseDTO.prototype, "project", void 0);
+__decorate([
+    class_validator_1.IsJSON(),
+    __metadata("design:type", Object)
 ], BaseDTO.prototype, "data", void 0);
+__decorate([
+    class_validator_1.IsJSON(),
+    __metadata("design:type", Object)
+], BaseDTO.prototype, "sort", void 0);
+__decorate([
+    class_validator_1.IsNumberString(),
+    __metadata("design:type", Object)
+], BaseDTO.prototype, "limit", void 0);
+__decorate([
+    class_validator_1.IsNumberString(),
+    __metadata("design:type", Object)
+], BaseDTO.prototype, "skip", void 0);
 __decorate([
     class_validator_1.IsMongoId(),
     __metadata("design:type", Object)

@@ -6,12 +6,15 @@ const StandardException_1 = require("../exceptions/StandardException");
 const BaseResponse_1 = require("../responses/BaseResponse");
 class BasePresenter {
     constructor(baseModel) {
-        this.find = (query) => {
+        this.find = (query, project = null, sort = null, skip = null, limit = null) => {
             return new Promise(async (resolve, reject) => {
                 try {
                     const data = await this.baseModel
                         .getModelSchema()
-                        .find(query != null ? JSON.parse(query) : {});
+                        .find(query != null ? JSON.parse(query) : {}, JSON.parse(project))
+                        .sort(sort != null ? JSON.parse(sort) : {})
+                        .skip(+skip)
+                        .limit(+limit);
                     if (data != null && data.length !== 0) {
                         resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data, strings_1.default.success))));
                     }
@@ -19,6 +22,7 @@ class BasePresenter {
                         resolve(BaseResponse_1.BaseResponse.getEmptyResponse());
                 }
                 catch (e) {
+                    console.log(e);
                     reject(new StandardException_1.StandardException());
                 }
             });

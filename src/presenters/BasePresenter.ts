@@ -11,16 +11,21 @@ export class BasePresenter {
     this.baseModel = baseModel;
   }
 
-  public find = (query: string) => {
+  public find = (query: string, project: any = null, sort: any = null, skip: any = null, limit: any = null) => {
     return new Promise(async (resolve, reject) => {
       try {
         const data = await this.baseModel
           .getModelSchema()
-          .find(query != null ? JSON.parse(query) : {});
+          .find(query != null ? JSON.parse(query) : {}, JSON.parse(project))
+          .sort(sort != null ? JSON.parse(sort) : {})
+          .skip(+skip)
+          .limit(+limit);
+
         if (data != null && data.length !== 0) {
           resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data, strings.success))));
         } else resolve(BaseResponse.getEmptyResponse());
       } catch (e) {
+        console.log(e);
         reject(new StandardException());
       }
     });
@@ -51,7 +56,7 @@ export class BasePresenter {
           )
           // tslint:disable-next-line: no-shadowed-variable
           .then(data => {
-            if (data != null)resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data, strings.success))));
+            if (data != null) resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data, strings.success))));
             else reject(new StandardException());
           });
       } else reject(new InvalidParamsException());

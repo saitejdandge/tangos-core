@@ -8,8 +8,7 @@ import BookPresenter from './BookPresenter';
 export class BookController extends BaseController<BookPresenter> {
 
   constructor(endPoint: string) {
-    super(endPoint, false);
-    this.openCreateRoute();
+    super(endPoint, true);
   }
 
   public attachPresenter(): BookPresenter {
