@@ -6,5 +6,6 @@ declare const _default: {
     oAuthConfigDisabled: string;
     authSuccessful: string;
     standardErrorMessage: string;
+    noTokenFound: string;
 };
 export default _default;

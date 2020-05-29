@@ -6,4 +6,5 @@ export default{
   oAuthConfigDisabled:'OAuth config disabled',
   authSuccessful:'Authenticated successfully',
   standardErrorMessage:'Something went wrong, please try again.',
+  noTokenFound:'No token found.',
 };

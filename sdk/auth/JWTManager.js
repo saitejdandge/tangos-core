@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 const AuthenticationTokenMissingException_1 = require("../exceptions/AuthenticationTokenMissingException");
 const InvalidParamsException_1 = require("../exceptions/InvalidParamsException");
 const SessionExpiredException_1 = require("../exceptions/SessionExpiredException");
+const StandardException_1 = require("../exceptions/StandardException");
 const BaseResponse_1 = require("../responses/BaseResponse");
+const DBConnector_1 = require("./../database/DBConnector");
 class JWTManager {
     constructor(authConfig, config) {
         this.authConfig = authConfig;
@@ -18,7 +20,7 @@ class JWTManager {
         });
     }
     verifyToken(req) {
-        const token = this.createToken('hello');
+        const token = req.headers.token;
         const oAuthFreeCalls = this.config.getAuthFreeEndPoints();
         // check header or url parameters or post parameters for token
         return new Promise(async (resolve, reject) => {
@@ -38,8 +40,7 @@ class JWTManager {
                         resolve(checkUserSessionResponse);
                     }
                     catch (e) {
-                        // reject(e);
-                        reject(new SessionExpiredException_1.SessionExpiredException());
+                        reject(e);
                     }
                 }
                 else
@@ -52,21 +53,20 @@ class JWTManager {
     async checkUserSession(userId, token) {
         return new Promise((resolve, reject) => {
             if (userId != null && token != null) {
-                reject(new InvalidParamsException_1.InvalidParamsException());
-                //
-                // let db = mongoose.connection;
-                // db.collection("user_sessions")
-                //     .findOne({user_id: user_id}, (err, res) => {
-                //
-                //         if (err == null) {
-                //             if (res != null && res.token == token) {
-                //
-                //                 resolve(BaseResponse.getAuthenticationSuccessResponse(user_id));
-                //             } else
-                //                 reject(new SessionExpiredException());
-                //         } else
-                //             reject(new StandardException());
-                //     });
+                DBConnector_1.DBConnector.getDBInstance().collection('user_sessions')
+                    .findOne({ user_id: userId }, (err, res) => {
+                    if (err == null) {
+                        if (res != null && res.token === token) {
+                            resolve(BaseResponse_1.BaseResponse.getAuthenticationSuccessResponse(userId));
+                        }
+                        else {
+                            reject(new SessionExpiredException_1.SessionExpiredException());
+                        }
+                    }
+                    else {
+                        reject(new StandardException_1.StandardException());
+                    }
+                });
             }
             else
                 reject(new InvalidParamsException_1.InvalidParamsException());

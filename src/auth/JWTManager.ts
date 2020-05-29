@@ -1,11 +1,13 @@
 import * as jwt from 'jsonwebtoken';
 import { Config } from '../Config';
+import strings from '../constants/strings';
 import { AuthenticationTokenMissingException } from '../exceptions/AuthenticationTokenMissingException';
 import { InvalidParamsException } from '../exceptions/InvalidParamsException';
 import { SessionExpiredException } from '../exceptions/SessionExpiredException';
 import { StandardException } from '../exceptions/StandardException';
 import { BaseResponse } from '../responses/BaseResponse';
 import { DBConnector } from './../database/DBConnector';
+import { HttpException } from './../exceptions/HttpException';
 import { AuthConfig } from './AuthConfig';
 export class JWTManager {
   public authConfig: AuthConfig;
@@ -25,7 +27,7 @@ export class JWTManager {
   }
 
   public verifyToken(req: any): Promise<BaseResponse> {
-    const token = this.createToken('hello');
+    const token = req.headers.token;
     const oAuthFreeCalls = this.config.getAuthFreeEndPoints();
     // check header or url parameters or post parameters for token
     return new Promise(async (resolve, reject) => {
@@ -47,8 +49,7 @@ export class JWTManager {
             );
             resolve(checkUserSessionResponse);
           } catch (e) {
-            // reject(e);
-            reject(new SessionExpiredException());
+            reject(e);
           }
         } else resolve(BaseResponse.getOAuthFreeEndpointResponse());
       } else resolve(BaseResponse.getOAuthConfigDisabledResponse());
