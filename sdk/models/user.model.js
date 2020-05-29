@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Config_1 = require("../Config");
+const AuthConfig_1 = require("./../auth/AuthConfig");
 const base_model_1 = require("./base.model");
 class UserModel extends base_model_1.BaseModel {
     constructor() {
         super(...arguments);
-        this.collectionName = Config_1.Config.collectionNames.users;
+        this.collectionName = AuthConfig_1.AuthConfig.collectionNames.users;
         this.schema = UserModel.getMongoSchema({
             name: String,
             creationDate: Date,

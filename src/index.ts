@@ -20,7 +20,6 @@ import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 
 import { BaseApp } from './BaseApp';
-import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
 import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
@@ -53,6 +52,5 @@ export default {
   CommonEndPoints,
   validateEnv,
   BaseApp,
-  Config,
 
 };

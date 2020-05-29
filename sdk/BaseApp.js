@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bodyParser = require("body-parser");
 const express = require("express");
 const timeout = require("connect-timeout");
-const Config_1 = require("./Config");
+const AuthConfig_1 = require("./auth/AuthConfig");
 const UserController_1 = require("./controllers/UserController");
 const DBConnector_1 = require("./database/DBConnector");
 const authMiddleware_1 = require("./middlewares/authMiddleware");
@@ -13,10 +13,9 @@ const loggerMiddleware_1 = require("./middlewares/loggerMiddleware");
 const pageNotFoundMiddleware_1 = require("./middlewares/pageNotFoundMiddleware");
 const timeoutMiddleware_1 = require("./middlewares/timeoutMiddleware");
 class BaseApp {
-    constructor(config, authConfig, dbConfig, 
+    constructor(authConfig, dbConfig, 
     // tslint:disable-next-line: array-type
     controllers) {
-        this.config = config;
         this.app = express();
         this.dbConfig = dbConfig;
         this.authConfig = authConfig;
@@ -37,9 +36,6 @@ class BaseApp {
     getAuthConfig() {
         return this.authConfig;
     }
-    getConfig() {
-        return this.config;
-    }
     getDbConfig() {
         return this.dbConfig;
     }
@@ -54,7 +50,7 @@ class BaseApp {
         this.app.use(timeoutMiddleware_1.timeoutMiddleware);
     }
     initializeAuthMiddleware() {
-        if (this.config.isOAuthEnabled)
+        if (this.authConfig.isOAuthEnabled)
             this.app.use(authMiddleware_1.authMiddlware);
     }
     initializeDBConnectionCheckMiddleware() {
@@ -88,7 +84,7 @@ class BaseApp {
         }
     }
     initializeBaseControllers() {
-        this.app.use('/', new UserController_1.UserController('/' + Config_1.Config.collectionNames.users).router);
+        this.app.use('/', new UserController_1.UserController('/' + AuthConfig_1.AuthConfig.collectionNames.users).router);
     }
 }
 exports.BaseApp = BaseApp;

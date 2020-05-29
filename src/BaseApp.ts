@@ -3,7 +3,6 @@ import * as express from 'express';
 
 import * as timeout from 'connect-timeout';
 import { AuthConfig } from './auth/AuthConfig';
-import { Config } from './Config';
 import { BaseController } from './controllers/BaseController';
 import { UserController } from './controllers/UserController';
 import { DbConfig } from './database/db.config';
@@ -24,18 +23,15 @@ export class BaseApp {
   private static app: BaseApp;
 
   public app: express.Application;
-  private readonly config: Config;
   private readonly dbConfig: DbConfig;
   private readonly authConfig: AuthConfig;
 
   constructor(
-    config: Config,
     authConfig: AuthConfig,
     dbConfig: DbConfig,
     // tslint:disable-next-line: array-type
     controllers: BaseController<BasePresenter>[],
   ) {
-    this.config = config;
     this.app = express();
     this.dbConfig = dbConfig;
     this.authConfig = authConfig;
@@ -55,10 +51,6 @@ export class BaseApp {
     return this.authConfig;
   }
 
-  public getConfig() {
-    return this.config;
-  }
-
   public getDbConfig() {
     return this.dbConfig;
   }
@@ -76,7 +68,7 @@ export class BaseApp {
   }
 
   private initializeAuthMiddleware() {
-    if (this.config.isOAuthEnabled) this.app.use(authMiddlware);
+    if (this.authConfig.isOAuthEnabled) this.app.use(authMiddlware);
   }
 
   private initializeDBConnectionCheckMiddleware() {
@@ -119,7 +111,7 @@ export class BaseApp {
   private initializeBaseControllers() {
     this.app.use(
       '/',
-      new UserController('/' + Config.collectionNames.users).router,
+      new UserController('/' + AuthConfig.collectionNames.users).router,
     );
   }
 }

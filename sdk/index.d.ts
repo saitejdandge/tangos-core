@@ -18,7 +18,6 @@ import { validateFieldMiddleware, validationMiddleware } from './middlewares/val
 import { BaseModel } from './models/base.model';
 import { CustomRoute } from './models/CustomRoute';
 import { BaseApp } from './BaseApp';
-import { Config } from './Config';
 import { BasePresenter } from './presenters/BasePresenter';
 import { BaseResponse } from './responses/BaseResponse';
 import { CommonEndPoints } from './utils/CommonEndPoints';
@@ -49,6 +48,5 @@ declare const _default: {
     CommonEndPoints: typeof CommonEndPoints;
     validateEnv: typeof validateEnv;
     BaseApp: typeof BaseApp;
-    Config: typeof Config;
 };
 export default _default;

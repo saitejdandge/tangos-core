@@ -8,9 +8,8 @@ const StandardException_1 = require("../exceptions/StandardException");
 const BaseResponse_1 = require("../responses/BaseResponse");
 const DBConnector_1 = require("./../database/DBConnector");
 class JWTManager {
-    constructor(authConfig, config) {
+    constructor(authConfig) {
         this.authConfig = authConfig;
-        this.config = config;
     }
     createToken(userId) {
         console.log('Creating token for ', userId);
@@ -21,10 +20,10 @@ class JWTManager {
     }
     verifyToken(req) {
         const token = req.headers.token;
-        const oAuthFreeCalls = this.config.getAuthFreeEndPoints();
+        const oAuthFreeCalls = this.authConfig.getAuthFreeEndPoints();
         // check header or url parameters or post parameters for token
         return new Promise(async (resolve, reject) => {
-            if (this.config.isOAuthEnabled) {
+            if (this.authConfig.isOAuthEnabled) {
                 if (!oAuthFreeCalls.includes(req.originalUrl)) {
                     // let token = req.headers["token"];
                     //

@@ -20,7 +20,6 @@ const validationMiddleware_1 = require("./middlewares/validationMiddleware");
 const base_model_1 = require("./models/base.model");
 const CustomRoute_1 = require("./models/CustomRoute");
 const BaseApp_1 = require("./BaseApp");
-const Config_1 = require("./Config");
 const BasePresenter_1 = require("./presenters/BasePresenter");
 const BaseResponse_1 = require("./responses/BaseResponse");
 const CommonEndPoints_1 = require("./utils/CommonEndPoints");
@@ -52,5 +51,4 @@ exports.default = {
     CommonEndPoints: CommonEndPoints_1.CommonEndPoints,
     validateEnv: validateEnv_1.validateEnv,
     BaseApp: BaseApp_1.BaseApp,
-    Config: Config_1.Config,
 };
