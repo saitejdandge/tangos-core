@@ -1,4 +1,4 @@
-import { IsJSON, IsMongoId, IsNumber, IsNumberString, Min } from 'class-validator';
+import { IsJSON, IsMongoId, IsNumber, IsNumberString } from 'class-validator';
 
 export class BaseDTO {
   @IsJSON()

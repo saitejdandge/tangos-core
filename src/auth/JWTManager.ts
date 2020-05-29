@@ -3,9 +3,10 @@ import { Config } from '../Config';
 import { AuthenticationTokenMissingException } from '../exceptions/AuthenticationTokenMissingException';
 import { InvalidParamsException } from '../exceptions/InvalidParamsException';
 import { SessionExpiredException } from '../exceptions/SessionExpiredException';
+import { StandardException } from '../exceptions/StandardException';
 import { BaseResponse } from '../responses/BaseResponse';
+import { DBConnector } from './../database/DBConnector';
 import { AuthConfig } from './AuthConfig';
-
 export class JWTManager {
   public authConfig: AuthConfig;
   public config: Config;
@@ -60,21 +61,18 @@ export class JWTManager {
   ): Promise<BaseResponse> {
     return new Promise((resolve, reject) => {
       if (userId != null && token != null) {
-        reject(new InvalidParamsException());
-        //
-        // let db = mongoose.connection;
-        // db.collection("user_sessions")
-        //     .findOne({user_id: user_id}, (err, res) => {
-        //
-        //         if (err == null) {
-        //             if (res != null && res.token == token) {
-        //
-        //                 resolve(BaseResponse.getAuthenticationSuccessResponse(user_id));
-        //             } else
-        //                 reject(new SessionExpiredException());
-        //         } else
-        //             reject(new StandardException());
-        //     });
+        DBConnector.getDBInstance().collection('user_sessions')
+          .findOne({ user_id: userId }, (err: any, res: any) => {
+            if (err == null) {
+              if (res != null && res.token === token) {
+                resolve(BaseResponse.getAuthenticationSuccessResponse(userId));
+              } else {
+                reject(new SessionExpiredException());
+              }
+            } else {
+              reject(new StandardException());
+            }
+          });
       } else reject(new InvalidParamsException());
     });
   }
