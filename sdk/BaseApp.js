@@ -18,6 +18,11 @@ class BaseApp {
     // tslint:disable-next-line: array-type
     controllers) {
         this.app = express();
+        this.app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token');
+            next();
+        });
         this.dbConfig = dbConfig;
         this.authConfig = authConfig;
         this.connectToTheDatabase();
