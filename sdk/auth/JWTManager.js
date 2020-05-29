@@ -13,7 +13,6 @@ class JWTManager {
     }
     createToken(userId) {
         console.log('Creating token for ', userId);
-        // user_id = user_id + '';
         return jwt.sign({ id: userId, isActive: true }, this.authConfig.secret, {
             expiresIn: 86400,
         });

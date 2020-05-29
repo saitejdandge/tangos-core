@@ -8,9 +8,7 @@ export async function authMiddlware(
   response: express.Response,
   next: express.NextFunction,
 ) {
-  const jwtManager = new JWTManager(
-    BaseApp.getInstance().getAuthConfig()
-  );
+  const jwtManager = BaseApp.getInstance().jwtManager;
   try {
     const res = await jwtManager.verifyToken(request);
     if (res.result === 1) next();

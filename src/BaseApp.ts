@@ -1,5 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
+import { JWTManager } from './auth/JWTManager';
 
 import * as timeout from 'connect-timeout';
 import { AuthConfig } from './auth/AuthConfig';
@@ -23,6 +24,7 @@ export class BaseApp {
   private static app: BaseApp;
 
   public app: express.Application;
+  public jwtManager: JWTManager;
   private readonly dbConfig: DbConfig;
   private readonly authConfig: AuthConfig;
 
@@ -44,6 +46,7 @@ export class BaseApp {
     this.initializeControllers(controllers);
     this.initializePageNotFoundMiddleware();
     this.initializeErrorMiddleware();
+    this.jwtManager = new JWTManager(this.authConfig);
     BaseApp.app = this;
   }
 

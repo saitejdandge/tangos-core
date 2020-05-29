@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { JWTManager } from './auth/JWTManager';
 import { AuthConfig } from './auth/AuthConfig';
 import { BaseController } from './controllers/BaseController';
 import { DbConfig } from './database/db.config';
@@ -7,6 +8,7 @@ export declare class BaseApp {
     static getInstance(): BaseApp;
     private static app;
     app: express.Application;
+    jwtManager: JWTManager;
     private readonly dbConfig;
     private readonly authConfig;
     constructor(authConfig: AuthConfig, dbConfig: DbConfig, controllers: BaseController<BasePresenter>[]);

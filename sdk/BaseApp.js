@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const bodyParser = require("body-parser");
 const express = require("express");
+const JWTManager_1 = require("./auth/JWTManager");
 const timeout = require("connect-timeout");
 const AuthConfig_1 = require("./auth/AuthConfig");
 const UserController_1 = require("./controllers/UserController");
@@ -28,6 +29,7 @@ class BaseApp {
         this.initializeControllers(controllers);
         this.initializePageNotFoundMiddleware();
         this.initializeErrorMiddleware();
+        this.jwtManager = new JWTManager_1.JWTManager(this.authConfig);
         BaseApp.app = this;
     }
     static getInstance() {
