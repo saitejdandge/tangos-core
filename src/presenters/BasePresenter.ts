@@ -11,7 +11,7 @@ export class BasePresenter {
     this.baseModel = baseModel;
   }
 
-  public find = (query: string, project: any = null, sort: any = null, skip: any = null, limit: any = null) => {
+  public find(query: string, project: any = null, sort: any = null, skip: any = null, limit: any = null) {
     return new Promise(async (resolve, reject) => {
       try {
         const data = await this.baseModel
@@ -31,7 +31,7 @@ export class BasePresenter {
     });
   }
 
-  public findOne = (query: string) => {
+  public findOne(query: string) {
     return new Promise<BaseResponse>(resolve => {
       this.baseModel
         .getModelSchema()
@@ -43,7 +43,7 @@ export class BasePresenter {
     });
   }
 
-  public update = (query: string, data: string) => {
+  public update(query: string, data: string) {
     return new Promise<BaseResponse>((resolve, reject) => {
       // const id = request.params.id;
       if (data != null) {
@@ -63,7 +63,7 @@ export class BasePresenter {
     });
   }
 
-  public create = (data: string) => {
+  public create(data: string) {
     return new Promise(async (resolve, reject) => {
       if (data != null) {
         const createdPost = new (this.baseModel.getModelSchema())(
@@ -81,7 +81,7 @@ export class BasePresenter {
     });
   }
 
-  public deleteData = (query: string) => {
+  public deleteData(query: string) {
     // const id = request.params.id;
     return new Promise<BaseResponse>((resolve, reject) => {
       this.baseModel
