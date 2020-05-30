@@ -1,6 +1,6 @@
 {
   "name": "tangos-core",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "scripts": {
     "dev": "ts-node sample/server.ts",
     "build": "tsc",

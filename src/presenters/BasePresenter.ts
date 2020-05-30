@@ -12,7 +12,7 @@ export class BasePresenter {
   }
 
   public find(query: string, project: any = null, sort: any = null, skip: any = null, limit: any = null) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<BaseResponse>(async (resolve, reject) => {
       try {
         const data = await this.baseModel
           .getModelSchema()
@@ -64,7 +64,7 @@ export class BasePresenter {
   }
 
   public create(data: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<BaseResponse>(async (resolve, reject) => {
       if (data != null) {
         const createdPost = new (this.baseModel.getModelSchema())(
           JSON.parse(data),
