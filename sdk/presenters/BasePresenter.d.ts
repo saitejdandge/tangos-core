@@ -6,6 +6,7 @@ export declare class BasePresenter {
     find(query: string, project?: any, sort?: any, skip?: any, limit?: any): Promise<BaseResponse>;
     findOne(query: string): Promise<BaseResponse>;
     update(query: string, data: string): Promise<BaseResponse>;
+    findOneAndUpdate(query: string, data: string): Promise<BaseResponse>;
     create(data: string): Promise<BaseResponse>;
     deleteData(query: string): Promise<BaseResponse>;
 }

@@ -12,6 +12,7 @@ export declare abstract class BaseController<BP extends BasePresenter> {
     openCreateRoute(...middlewares: any[]): void;
     openFindRoute(...middlewares: any[]): void;
     openFindOneRoute(...middlewares: any[]): void;
+    openFindOneAndUpdateRoute(...middlewares: any[]): void;
     openUpdateRoute(...middlewares: any[]): void;
     openDeleteRoute(...middlewares: any[]): void;
     private openCRUDRoutes;
@@ -21,5 +22,6 @@ export declare abstract class BaseController<BP extends BasePresenter> {
     private find;
     private findOne;
     private update;
+    private findOneAndUpdate;
     private deleteData;
 }

@@ -4,4 +4,5 @@ export declare class CommonEndPoints {
     static FIND_ONE: string;
     static UPDATE: string;
     static DELETE_DATA: string;
+    static FIND_ONE_UPDATE: string;
 }

@@ -8,3 +8,4 @@ CommonEndPoints.FIND = 'find';
 CommonEndPoints.FIND_ONE = 'findOne';
 CommonEndPoints.UPDATE = 'update';
 CommonEndPoints.DELETE_DATA = 'deleteData';
+CommonEndPoints.FIND_ONE_UPDATE = 'findOneAndUpdate';

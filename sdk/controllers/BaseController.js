@@ -38,6 +38,9 @@ class BaseController {
     openFindOneRoute(...middlewares) {
         this.addRoute(CommonEndPoints_1.CommonEndPoints.FIND_ONE, this.findOne.bind(this), BaseController.attachBaseMiddlewares([middlewares]));
     }
+    openFindOneAndUpdateRoute(...middlewares) {
+        this.addRoute(CommonEndPoints_1.CommonEndPoints.FIND_ONE_UPDATE, this.findOneAndUpdate.bind(this), BaseController.attachBaseMiddlewares([validationMiddleware_1.validationMiddleware(dataDTO_1.DataDTO), middlewares]));
+    }
     openUpdateRoute(...middlewares) {
         this.addRoute(CommonEndPoints_1.CommonEndPoints.UPDATE, this.update.bind(this), BaseController.attachBaseMiddlewares([validationMiddleware_1.validationMiddleware(dataDTO_1.DataDTO), middlewares]));
     }
@@ -50,6 +53,7 @@ class BaseController {
         this.openFindRoute();
         this.openFindOneRoute();
         this.openUpdateRoute();
+        this.openFindOneAndUpdateRoute();
         this.openDeleteRoute();
     }
     openCustomRoutes() {
@@ -99,6 +103,15 @@ class BaseController {
     async update(request, response, next) {
         try {
             const res = await this.getPresenter().update(request.body.query, request.body.data);
+            response.json(res);
+        }
+        catch (e) {
+            next(e);
+        }
+    }
+    async findOneAndUpdate(request, response, next) {
+        try {
+            const res = await this.getPresenter().findOneAndUpdate(request.body.query, request.body.data);
             response.json(res);
         }
         catch (e) {
