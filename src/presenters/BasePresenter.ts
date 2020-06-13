@@ -63,6 +63,25 @@ export class BasePresenter {
     });
   }
 
+  public findOneAndUpdate(query: string, data: string) {
+    return new Promise<BaseResponse>((resolve, reject) => {
+      // const id = request.params.id;
+      if (data != null) {
+        this.baseModel
+          .getModelSchema()
+          .findOneAndUpdate(
+            query != null ? JSON.parse(query) : {},
+            { $set: data != null ? JSON.parse(data) : {} },
+            { new: true },
+          )
+          // tslint:disable-next-line: no-shadowed-variable
+          .then(data => {
+            if (data != null) resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data, strings.success))));
+            else reject(new StandardException());
+          });
+      } else reject(new InvalidParamsException());
+    });
+  }
   public create(data: string) {
     return new Promise<BaseResponse>(async (resolve, reject) => {
       if (data != null) {

@@ -62,6 +62,13 @@ export abstract class BaseController<BP extends BasePresenter> {
     );
   }
 
+  public openFindOneAndUpdateRoute(...middlewares: any[]) {
+    this.addRoute(
+      CommonEndPoints.FIND_ONE_UPDATE,
+      this.findOneAndUpdate.bind(this),
+      BaseController.attachBaseMiddlewares([validationMiddleware(DataDTO), middlewares]),
+    );
+  }
   public openUpdateRoute(...middlewares: any[]) {
     this.addRoute(
       CommonEndPoints.UPDATE,
@@ -83,6 +90,7 @@ export abstract class BaseController<BP extends BasePresenter> {
     this.openFindRoute();
     this.openFindOneRoute();
     this.openUpdateRoute();
+    this.openFindOneAndUpdateRoute();
     this.openDeleteRoute();
   }
 
@@ -153,6 +161,21 @@ export abstract class BaseController<BP extends BasePresenter> {
   ) {
     try {
       const res = await this.getPresenter().update(
+        request.body.query,
+        request.body.data,
+      );
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
+  private async findOneAndUpdate(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().findOneAndUpdate(
         request.body.query,
         request.body.data,
       );
