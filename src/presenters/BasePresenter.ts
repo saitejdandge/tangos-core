@@ -63,7 +63,7 @@ export class BasePresenter {
     });
   }
 
-  public findOneAndUpdate(query: string, data: string) {
+  public findOneAndUpdate(query: string, data: string, upsert?: boolean) {
     return new Promise<BaseResponse>((resolve, reject) => {
       // const id = request.params.id;
       if (data != null) {
@@ -72,7 +72,7 @@ export class BasePresenter {
           .findOneAndUpdate(
             query != null ? JSON.parse(query) : {},
             { $set: data != null ? JSON.parse(data) : {} },
-            { new: true },
+            { upsert, new: true },
           )
           // tslint:disable-next-line: no-shadowed-variable
           .then(data => {

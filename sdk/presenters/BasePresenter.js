@@ -30,8 +30,10 @@ class BasePresenter {
         });
     }
     findOne(query) {
+        
         return new Promise(resolve => {
             this.baseModel
+
                 .getModelSchema()
                 .findOne(query != null ? JSON.parse(query) : {})
                 .then(data => {
