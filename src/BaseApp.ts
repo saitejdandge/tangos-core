@@ -5,7 +5,6 @@ import { JWTManager } from './auth/JWTManager';
 import * as timeout from 'connect-timeout';
 import { AuthConfig } from './auth/AuthConfig';
 import { BaseController } from './controllers/BaseController';
-import { UserController } from './controllers/UserController';
 import { DbConfig } from './database/db.config';
 import { DBConnector } from './database/DBConnector';
 import { authMiddlware } from './middlewares/authMiddleware';
@@ -120,9 +119,9 @@ export class BaseApp {
   }
 
   private initializeBaseControllers() {
-    this.app.use(
-      '/',
-      new UserController('/' + AuthConfig.collectionNames.users).router,
-    );
+    // this.app.use(
+    //   '/',
+    //   new UserController('/' + AuthConfig.collectionNames.users).router,
+    // );
   }
 }

@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const JWTManager_1 = require("./auth/JWTManager");
 const timeout = require("connect-timeout");
-const AuthConfig_1 = require("./auth/AuthConfig");
-const UserController_1 = require("./controllers/UserController");
 const DBConnector_1 = require("./database/DBConnector");
 const authMiddleware_1 = require("./middlewares/authMiddleware");
 const checkForDBConnectionMiddleware_1 = require("./middlewares/checkForDBConnectionMiddleware");
@@ -91,7 +89,10 @@ class BaseApp {
         }
     }
     initializeBaseControllers() {
-        this.app.use('/', new UserController_1.UserController('/' + AuthConfig_1.AuthConfig.collectionNames.users).router);
+        // this.app.use(
+        //   '/',
+        //   new UserController('/' + AuthConfig.collectionNames.users).router,
+        // );
     }
 }
 exports.BaseApp = BaseApp;
