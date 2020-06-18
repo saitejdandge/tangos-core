@@ -8,15 +8,15 @@ class BasePresenter {
     constructor(baseModel) {
         this.baseModel = baseModel;
     }
-    find(query, project = null, sort = null, skip = null, limit = null) {
+    find(query, project, sort, skip, limit) {
         return new Promise(async (resolve, reject) => {
             try {
                 const data = await this.baseModel
                     .getModelSchema()
-                    .find(query != null ? JSON.parse(query) : {}, JSON.parse(project))
+                    .find(query != null ? JSON.parse(query) : {}, project != null ? JSON.parse(project) : {})
                     .sort(sort != null ? JSON.parse(sort) : {})
-                    .skip(+skip)
-                    .limit(+limit);
+                    .skip(skip != null ? +skip : 0)
+                    .limit(limit != null ? +limit : 0);
                 if (data != null && data.length !== 0) {
                     resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data, strings_1.default.success))));
                 }
@@ -30,10 +30,8 @@ class BasePresenter {
         });
     }
     findOne(query) {
-        
         return new Promise(resolve => {
             this.baseModel
-
                 .getModelSchema()
                 .findOne(query != null ? JSON.parse(query) : {})
                 .then(data => {
@@ -63,13 +61,13 @@ class BasePresenter {
                 reject(new InvalidParamsException_1.InvalidParamsException());
         });
     }
-    findOneAndUpdate(query, data) {
+    findOneAndUpdate(query, data, upsert) {
         return new Promise((resolve, reject) => {
             // const id = request.params.id;
             if (data != null) {
                 this.baseModel
                     .getModelSchema()
-                    .findOneAndUpdate(query != null ? JSON.parse(query) : {}, { $set: data != null ? JSON.parse(data) : {} }, { new: true })
+                    .findOneAndUpdate(query != null ? JSON.parse(query) : {}, { $set: data != null ? JSON.parse(data) : {} }, { upsert, new: true })
                     // tslint:disable-next-line: no-shadowed-variable
                     .then(data => {
                     if (data != null)

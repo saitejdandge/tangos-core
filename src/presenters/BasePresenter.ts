@@ -11,16 +11,15 @@ export class BasePresenter {
     this.baseModel = baseModel;
   }
 
-  public find(query: string, project: any = null, sort: any = null, skip: any = null, limit: any = null) {
+  public find(query: string, project?: string, sort?: string | undefined, skip?: number | undefined, limit?: number | undefined) {
     return new Promise<BaseResponse>(async (resolve, reject) => {
       try {
         const data = await this.baseModel
           .getModelSchema()
-          .find(query != null ? JSON.parse(query) : {}, JSON.parse(project))
+          .find(query != null ? JSON.parse(query) : {}, project != null ? JSON.parse(project) : {})
           .sort(sort != null ? JSON.parse(sort) : {})
-          .skip(+skip)
-          .limit(+limit);
-
+          .skip(skip != null ? +skip : 0)
+          .limit(limit != null ? +limit : 0);
         if (data != null && data.length !== 0) {
           resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data, strings.success))));
         } else resolve(BaseResponse.getEmptyResponse());
