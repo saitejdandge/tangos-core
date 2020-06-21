@@ -30,11 +30,11 @@ export class BasePresenter {
     });
   }
 
-  public findOne(query: string) {
+  public findOne(query: string, project?: string) {
     return new Promise<BaseResponse>(resolve => {
       this.baseModel
         .getModelSchema()
-        .findOne(query != null ? JSON.parse(query) : {})
+        .findOne(query != null ? JSON.parse(query) : {}, project != null ? JSON.parse(project) : {})
         .then(data => {
           if (data != null) resolve(JSON.parse(JSON.stringify(BaseResponse.getSuccessResponse(data, strings.success))));
           else resolve(BaseResponse.getEmptyResponse());
@@ -62,7 +62,7 @@ export class BasePresenter {
     });
   }
 
-  public findOneAndUpdate(query: string, data: string, upsert?: boolean) {
+  public findOneAndUpdate(query: string, data: string, upsert?: boolean, newDoc?: boolean) {
     return new Promise<BaseResponse>((resolve, reject) => {
       // const id = request.params.id;
       if (data != null) {
@@ -71,7 +71,7 @@ export class BasePresenter {
           .findOneAndUpdate(
             query != null ? JSON.parse(query) : {},
             { $set: data != null ? JSON.parse(data) : {} },
-            { upsert, new: true },
+            { upsert, new: newDoc },
           )
           // tslint:disable-next-line: no-shadowed-variable
           .then(data => {
