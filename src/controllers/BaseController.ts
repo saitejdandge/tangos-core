@@ -147,7 +147,7 @@ export abstract class BaseController<BP extends BasePresenter> {
     next: express.NextFunction,
   ) {
     try {
-      const res = await this.getPresenter().findOne(request.body.query);
+      const res = await this.getPresenter().findOne(request.body.query, request.body.project);
       response.json(res);
     } catch (e) {
       next(e);

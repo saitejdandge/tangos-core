@@ -29,11 +29,11 @@ class BasePresenter {
             }
         });
     }
-    findOne(query) {
+    findOne(query, project) {
         return new Promise(resolve => {
             this.baseModel
                 .getModelSchema()
-                .findOne(query != null ? JSON.parse(query) : {})
+                .findOne(query != null ? JSON.parse(query) : {}, project != null ? JSON.parse(project) : {})
                 .then(data => {
                 if (data != null)
                     resolve(JSON.parse(JSON.stringify(BaseResponse_1.BaseResponse.getSuccessResponse(data, strings_1.default.success))));
@@ -61,13 +61,13 @@ class BasePresenter {
                 reject(new InvalidParamsException_1.InvalidParamsException());
         });
     }
-    findOneAndUpdate(query, data, upsert) {
+    findOneAndUpdate(query, data, upsert, newDoc) {
         return new Promise((resolve, reject) => {
             // const id = request.params.id;
             if (data != null) {
                 this.baseModel
                     .getModelSchema()
-                    .findOneAndUpdate(query != null ? JSON.parse(query) : {}, { $set: data != null ? JSON.parse(data) : {} }, { upsert, new: true })
+                    .findOneAndUpdate(query != null ? JSON.parse(query) : {}, { $set: data != null ? JSON.parse(data) : {} }, { upsert, new: newDoc })
                     // tslint:disable-next-line: no-shadowed-variable
                     .then(data => {
                     if (data != null)

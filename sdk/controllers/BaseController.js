@@ -93,7 +93,7 @@ class BaseController {
     }
     async findOne(request, response, next) {
         try {
-            const res = await this.getPresenter().findOne(request.body.query);
+            const res = await this.getPresenter().findOne(request.body.query, request.body.project);
             response.json(res);
         }
         catch (e) {
