@@ -1,6 +1,6 @@
 {
   "name": "tangos-core",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "scripts": {
     "dev": "ts-node sample/server.ts",
     "build": "tsc",
@@ -23,7 +23,6 @@
     "envalid": "^5.0.0",
     "express": "^4.17.1",
     "http-errors": "~1.6.3",
-    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.5",
     "ts-node": "^8.4.1",
     "tslint": "^5.11.0",

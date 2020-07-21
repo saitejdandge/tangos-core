@@ -1,14 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const AuthConfig_1 = require("./auth/AuthConfig");
-const JWTManager_1 = require("./auth/JWTManager");
 const BaseController_1 = require("./controllers/BaseController");
 const db_config_1 = require("./database/db.config");
 const DBConnector_1 = require("./database/DBConnector");
 const baseDTO_1 = require("./dto/baseDTO");
 const dataDTO_1 = require("./dto/dataDTO");
 const IdDTO_1 = require("./dto/IdDTO");
-const AuthenticationTokenMissingException_1 = require("./exceptions/AuthenticationTokenMissingException");
 const DBConnectionException_1 = require("./exceptions/DBConnectionException");
 const HttpException_1 = require("./exceptions/HttpException");
 const InvalidHandlerException_1 = require("./exceptions/InvalidHandlerException");
@@ -25,8 +22,6 @@ const BaseResponse_1 = require("./responses/BaseResponse");
 const CommonEndPoints_1 = require("./utils/CommonEndPoints");
 const validateEnv_1 = require("./utils/validateEnv");
 exports.default = {
-    AuthConfig: AuthConfig_1.AuthConfig,
-    JWTManager: JWTManager_1.JWTManager,
     BaseController: BaseController_1.BaseController,
     DbConfig: db_config_1.DbConfig,
     DBConnector: DBConnector_1.DBConnector,
@@ -35,7 +30,6 @@ exports.default = {
     BaseDTO: baseDTO_1.BaseDTO,
     DataDTO: dataDTO_1.DataDTO,
     IdDTO: IdDTO_1.IdDTO,
-    AuthenticationTokenMissingException: AuthenticationTokenMissingException_1.AuthenticationTokenMissingException,
     DBConnectionException: DBConnectionException_1.DBConnectionException,
     HttpException: HttpException_1.HttpException,
     InvalidHandlerException: InvalidHandlerException_1.InvalidHandlerException,

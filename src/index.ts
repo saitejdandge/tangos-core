@@ -1,5 +1,4 @@
-import { AuthConfig } from './auth/AuthConfig';
-import { JWTManager } from './auth/JWTManager';
+
 import { BaseController } from './controllers/BaseController';
 import { DbConfig } from './database/db.config';
 import { DBConnector } from './database/DBConnector';
@@ -7,7 +6,6 @@ import { BaseDTO } from './dto/baseDTO';
 import { DataDTO } from './dto/dataDTO';
 import { IdDTO } from './dto/IdDTO';
 
-import { AuthenticationTokenMissingException } from './exceptions/AuthenticationTokenMissingException';
 import { DBConnectionException } from './exceptions/DBConnectionException';
 import { HttpException } from './exceptions/HttpException';
 import { InvalidHandlerException } from './exceptions/InvalidHandlerException';
@@ -26,8 +24,6 @@ import { CommonEndPoints } from './utils/CommonEndPoints';
 import { validateEnv } from './utils/validateEnv';
 
 export default {
-  AuthConfig,
-  JWTManager,
   BaseController,
   DbConfig,
   DBConnector,
@@ -36,7 +32,6 @@ export default {
   BaseDTO,
   DataDTO,
   IdDTO,
-  AuthenticationTokenMissingException,
   DBConnectionException,
   HttpException,
   InvalidHandlerException,

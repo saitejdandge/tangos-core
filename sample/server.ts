@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import { AuthConfig } from '../src/auth/AuthConfig';
 import { BaseApp } from '../src/BaseApp';
 import { DbConfig } from '../src/database/db.config';
 import { validateEnv } from '../src/utils/validateEnv';
