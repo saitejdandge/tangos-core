@@ -2,19 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const bodyParser = require("body-parser");
 const express = require("express");
-const JWTManager_1 = require("./auth/JWTManager");
 const timeout = require("connect-timeout");
+const BaseController_1 = require("./controllers/BaseController");
 const DBConnector_1 = require("./database/DBConnector");
-const authMiddleware_1 = require("./middlewares/authMiddleware");
 const checkForDBConnectionMiddleware_1 = require("./middlewares/checkForDBConnectionMiddleware");
 const errorHandlerMiddleware_1 = require("./middlewares/errorHandlerMiddleware");
 const loggerMiddleware_1 = require("./middlewares/loggerMiddleware");
 const pageNotFoundMiddleware_1 = require("./middlewares/pageNotFoundMiddleware");
 const timeoutMiddleware_1 = require("./middlewares/timeoutMiddleware");
 class BaseApp {
-    constructor(authConfig, dbConfig, 
-    // tslint:disable-next-line: array-type
-    controllers) {
+    constructor(dbConfig) {
+        // tslint:disable-next-line: array-type
+        this.appMiddlewares = [];
         this.app = express();
         this.app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
@@ -22,47 +21,32 @@ class BaseApp {
             next();
         });
         this.dbConfig = dbConfig;
-        this.authConfig = authConfig;
-        this.connectToTheDatabase();
-        this.initializeLoggerMiddleware();
-        this.initializeTimeoutMiddleware();
-        this.initializeDBConnectionCheckMiddleware();
-        this.initializeAuthMiddleware();
-        this.initializeBaseControllers();
-        this.initializeControllers(controllers);
-        this.initializePageNotFoundMiddleware();
-        this.initializeErrorMiddleware();
-        this.jwtManager = new JWTManager_1.JWTManager(this.authConfig);
         BaseApp.app = this;
     }
     static getInstance() {
         return this.app;
     }
-    getAuthConfig() {
-        return this.authConfig;
+    addMiddleware(middleware) {
+        this.appMiddlewares.push(middleware);
     }
     getDbConfig() {
         return this.dbConfig;
     }
     listen() {
+        this.connectToTheDatabase();
+        this.initializeLoggerMiddleware();
+        this.initializeTimeoutMiddleware();
+        this.app.use(checkForDBConnectionMiddleware_1.checkForDBConnectionHandler);
+        this.initializeApplicationMiddlewares(this.appMiddlewares);
+        this.app.use(pageNotFoundMiddleware_1.pageNotFoundMiddleware);
+        this.app.use(errorHandlerMiddleware_1.errorHandlerMiddleware);
         this.app.listen(process.env.PORT, () => {
             console.log(`App listening on the port ${process.env.PORT}`);
         });
     }
     initializeTimeoutMiddleware() {
         this.app.use(timeout('10s'));
-        this.app.use(bodyParser.json());
         this.app.use(timeoutMiddleware_1.timeoutMiddleware);
-    }
-    initializeAuthMiddleware() {
-        if (this.authConfig.isOAuthEnabled)
-            this.app.use(authMiddleware_1.authMiddlware);
-    }
-    initializeDBConnectionCheckMiddleware() {
-        this.app.use(checkForDBConnectionMiddleware_1.checkForDBConnectionHandler);
-    }
-    initializePageNotFoundMiddleware() {
-        this.app.use(pageNotFoundMiddleware_1.pageNotFoundMiddleware);
     }
     initializeLoggerMiddleware() {
         this.app.use(loggerMiddleware_1.loggerMiddleware);
@@ -71,13 +55,15 @@ class BaseApp {
             extended: false,
         }));
     }
-    initializeErrorMiddleware() {
-        this.app.use(errorHandlerMiddleware_1.errorHandlerMiddleware);
-    }
     // tslint:disable-next-line: array-type
-    initializeControllers(controllers) {
-        controllers.forEach(controller => {
-            this.app.use('/', controller.router);
+    initializeApplicationMiddlewares(controllers) {
+        controllers.forEach(middleware => {
+            if (middleware instanceof BaseController_1.BaseController) {
+                this.app.use('/', middleware.router);
+            }
+            else {
+                this.app.use(middleware);
+            }
         });
     }
     async connectToTheDatabase() {
@@ -87,12 +73,6 @@ class BaseApp {
         catch (e) {
             console.log('Error connecting the database');
         }
-    }
-    initializeBaseControllers() {
-        // this.app.use(
-        //   '/',
-        //   new UserController('/' + AuthConfig.collectionNames.users).router,
-        // );
     }
 }
 exports.BaseApp = BaseApp;

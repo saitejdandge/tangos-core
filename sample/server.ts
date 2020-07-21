@@ -13,10 +13,8 @@ const {
     MONGO_PATH,
 } = process.env;
 const dbConfig = new DbConfig(MONGO_USER, MONGO_PASSWORD, MONGO_PATH, {});
-const authConfig = new AuthConfig('somerandom', false, []);
 const app = new BaseApp(
-    authConfig,
     dbConfig,
-    [new BookController('/books')],
 );
+app.addMiddleware(new BookController('/books'));
 app.listen();

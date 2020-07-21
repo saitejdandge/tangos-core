@@ -14,7 +14,6 @@ export class JWTManager {
   }
 
   public createToken(userId: string): string {
-    console.log('Creating token for ', userId);
     return jwt.sign({ id: userId, isActive: true }, this.authConfig.secret, {
       expiresIn: 86400, // expires in 24 hours
     });
@@ -50,10 +49,7 @@ export class JWTManager {
     });
   }
 
-  private async checkUserSession(
-    userId: string,
-    token: string,
-  ): Promise<BaseResponse> {
+  private async checkUserSession(userId: string, token: string): Promise<BaseResponse> {
     return new Promise((resolve, reject) => {
       if (userId != null && token != null) {
         DBConnector.getDBInstance().collection('user_sessions')

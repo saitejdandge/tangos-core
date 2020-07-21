@@ -1,13 +1,10 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { JWTManager } from './auth/JWTManager';
 
 import * as timeout from 'connect-timeout';
-import { AuthConfig } from './auth/AuthConfig';
 import { BaseController } from './controllers/BaseController';
 import { DbConfig } from './database/db.config';
 import { DBConnector } from './database/DBConnector';
-import { authMiddlware } from './middlewares/authMiddleware';
 import { checkForDBConnectionHandler } from './middlewares/checkForDBConnectionMiddleware';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware';
 import { loggerMiddleware } from './middlewares/loggerMiddleware';
@@ -23,16 +20,11 @@ export class BaseApp {
   private static app: BaseApp;
 
   public app: express.Application;
-  public jwtManager: JWTManager;
   private readonly dbConfig: DbConfig;
-  private readonly authConfig: AuthConfig;
+  // tslint:disable-next-line: array-type
+  private appMiddlewares: (BaseController<BasePresenter> | express.RequestHandler)[] = [];
 
-  constructor(
-    authConfig: AuthConfig,
-    dbConfig: DbConfig,
-    // tslint:disable-next-line: array-type
-    controllers: BaseController<BasePresenter>[],
-  ) {
+  constructor(dbConfig: DbConfig) {
     this.app = express();
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
@@ -43,29 +35,24 @@ export class BaseApp {
       next();
     });
     this.dbConfig = dbConfig;
-    this.authConfig = authConfig;
-    this.connectToTheDatabase();
-    this.initializeLoggerMiddleware();
-    this.initializeTimeoutMiddleware();
-    this.initializeDBConnectionCheckMiddleware();
-    this.initializeAuthMiddleware();
-    this.initializeBaseControllers();
-    this.initializeControllers(controllers);
-    this.initializePageNotFoundMiddleware();
-    this.initializeErrorMiddleware();
-    this.jwtManager = new JWTManager(this.authConfig);
     BaseApp.app = this;
   }
 
-  public getAuthConfig() {
-    return this.authConfig;
+  public addMiddleware(middleware: BaseController<BasePresenter> | express.RequestHandler) {
+    this.appMiddlewares.push(middleware);
   }
-
   public getDbConfig() {
     return this.dbConfig;
   }
 
   public listen() {
+    this.connectToTheDatabase();
+    this.initializeLoggerMiddleware();
+    this.initializeTimeoutMiddleware();
+    this.app.use(checkForDBConnectionHandler);
+    this.initializeApplicationMiddlewares(this.appMiddlewares);
+    this.app.use(pageNotFoundMiddleware);
+    this.app.use(errorHandlerMiddleware);
     this.app.listen(process.env.PORT, () => {
       console.log(`App listening on the port ${process.env.PORT}`);
     });
@@ -73,20 +60,7 @@ export class BaseApp {
 
   private initializeTimeoutMiddleware() {
     this.app.use(timeout('10s'));
-    this.app.use(bodyParser.json());
     this.app.use(timeoutMiddleware);
-  }
-
-  private initializeAuthMiddleware() {
-    if (this.authConfig.isOAuthEnabled) this.app.use(authMiddlware);
-  }
-
-  private initializeDBConnectionCheckMiddleware() {
-    this.app.use(checkForDBConnectionHandler);
-  }
-
-  private initializePageNotFoundMiddleware() {
-    this.app.use(pageNotFoundMiddleware);
   }
 
   private initializeLoggerMiddleware() {
@@ -99,14 +73,14 @@ export class BaseApp {
     );
   }
 
-  private initializeErrorMiddleware() {
-    this.app.use(errorHandlerMiddleware);
-  }
-
   // tslint:disable-next-line: array-type
-  private initializeControllers(controllers: BaseController<BasePresenter>[]) {
-    controllers.forEach(controller => {
-      this.app.use('/', controller.router);
+  private initializeApplicationMiddlewares(controllers: (BaseController<BasePresenter> | express.RequestHandler)[]) {
+    controllers.forEach(middleware => {
+      if (middleware instanceof BaseController) {
+        this.app.use('/', middleware.router);
+      } else {
+        this.app.use(middleware);
+      }
     });
   }
 
@@ -116,12 +90,5 @@ export class BaseApp {
     } catch (e) {
       console.log('Error connecting the database');
     }
-  }
-
-  private initializeBaseControllers() {
-    // this.app.use(
-    //   '/',
-    //   new UserController('/' + AuthConfig.collectionNames.users).router,
-    // );
   }
 }
