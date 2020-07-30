@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseResponse = void 0;
 const strings_1 = require("../constants/strings");
 class BaseResponse {
     constructor(result, message, data) {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkForDBConnectionHandler = void 0;
 const mongoose = require("mongoose");
 const DBConnectionException_1 = require("../exceptions/DBConnectionException");
 function checkForDBConnectionHandler(request, response, next) {

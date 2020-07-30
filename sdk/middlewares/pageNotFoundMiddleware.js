@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.pageNotFoundMiddleware = void 0;
 const PageNotFoundException_1 = require("../exceptions/PageNotFoundException");
 function pageNotFoundMiddleware(request, response, next) {
     // if control comes here, it means it has skipped all the controllers, hence page looking for was not found

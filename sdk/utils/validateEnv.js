@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateEnv = void 0;
 const envalid_1 = require("envalid");
 function validateEnv() {
     envalid_1.cleanEnv(process.env, {

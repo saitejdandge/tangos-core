@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseController = void 0;
 const express = require("express");
 const baseDTO_1 = require("../dto/baseDTO");
 const dataDTO_1 = require("../dto/dataDTO");

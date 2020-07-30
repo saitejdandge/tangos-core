@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BasePresenter = void 0;
 const strings_1 = require("../constants/strings");
 const InvalidParamsException_1 = require("../exceptions/InvalidParamsException");
 const StandardException_1 = require("../exceptions/StandardException");

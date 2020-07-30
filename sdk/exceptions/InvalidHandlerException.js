@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InvalidHandlerException = void 0;
 const HttpException_1 = require("./HttpException");
 class InvalidHandlerException extends HttpException_1.HttpException {
     constructor() {

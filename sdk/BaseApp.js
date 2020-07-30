@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseApp = void 0;
 const bodyParser = require("body-parser");
 const express = require("express");
 const timeout = require("connect-timeout");

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DbConfig = void 0;
 class DbConfig {
     constructor(mongoUser, mongoPassword, mongoPath, options) {
         this.mongoUser = mongoUser;
