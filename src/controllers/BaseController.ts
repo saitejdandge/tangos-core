@@ -84,6 +84,89 @@ export abstract class BaseController<BP extends BasePresenter> {
       BaseController.attachBaseMiddlewares([middlewares]),
     );
   }
+  
+  public async create(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().create(request.body.data);
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async find(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().find(request.body.query, request.body.project, request.body.sort, request.body.skip, request.body.limit);
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async findOne(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().findOne(request.body.query, request.body.project);
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async update(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().update(
+        request.body.query,
+        request.body.data,
+      );
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
+  public async findOneAndUpdate(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().findOneAndUpdate(
+        request.body.query,
+        request.body.data,
+      );
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async deleteData(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const res = await this.getPresenter().deleteData(request.body.query);
+      response.json(res);
+    } catch (e) {
+      next(e);
+    }
+  }
   // mapping router with functions
   private openCRUDRoutes() {
     this.openCreateRoute();
@@ -115,86 +198,4 @@ export abstract class BaseController<BP extends BasePresenter> {
     } else throw new InvalidHandlerException();
   }
 
-  private async create(
-    request: express.Request,
-    response: express.Response,
-    next: express.NextFunction,
-  ) {
-    try {
-      const res = await this.getPresenter().create(request.body.data);
-      response.json(res);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  private async find(
-    request: express.Request,
-    response: express.Response,
-    next: express.NextFunction,
-  ) {
-    try {
-      const res = await this.getPresenter().find(request.body.query, request.body.project, request.body.sort, request.body.skip, request.body.limit);
-      response.json(res);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  private async findOne(
-    request: express.Request,
-    response: express.Response,
-    next: express.NextFunction,
-  ) {
-    try {
-      const res = await this.getPresenter().findOne(request.body.query, request.body.project);
-      response.json(res);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  private async update(
-    request: express.Request,
-    response: express.Response,
-    next: express.NextFunction,
-  ) {
-    try {
-      const res = await this.getPresenter().update(
-        request.body.query,
-        request.body.data,
-      );
-      response.json(res);
-    } catch (e) {
-      next(e);
-    }
-  }
-  private async findOneAndUpdate(
-    request: express.Request,
-    response: express.Response,
-    next: express.NextFunction,
-  ) {
-    try {
-      const res = await this.getPresenter().findOneAndUpdate(
-        request.body.query,
-        request.body.data,
-      );
-      response.json(res);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  private async deleteData(
-    request: express.Request,
-    response: express.Response,
-    next: express.NextFunction,
-  ) {
-    try {
-      const res = await this.getPresenter().deleteData(request.body.query);
-      response.json(res);
-    } catch (e) {
-      next(e);
-    }
-  }
 }

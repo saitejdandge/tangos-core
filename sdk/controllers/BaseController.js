@@ -48,32 +48,6 @@ class BaseController {
     openDeleteRoute(...middlewares) {
         this.addRoute(CommonEndPoints_1.CommonEndPoints.DELETE_DATA, this.deleteData.bind(this), BaseController.attachBaseMiddlewares([middlewares]));
     }
-    // mapping router with functions
-    openCRUDRoutes() {
-        this.openCreateRoute();
-        this.openFindRoute();
-        this.openFindOneRoute();
-        this.openUpdateRoute();
-        this.openFindOneAndUpdateRoute();
-        this.openDeleteRoute();
-    }
-    openCustomRoutes() {
-        if (this.attachCustomRoutes() != null) {
-            // tslint:disable-next-line: prefer-for-of
-            for (let i = 0; i < this.attachCustomRoutes().length; i = i + 1) {
-                const customRoute = this.attachCustomRoutes()[i];
-                this.addRoute(customRoute.endPoint, customRoute.handler, customRoute.middlewares);
-            }
-        }
-    }
-    addRoute(endPoint, handler, ...middlewares) {
-        if (handler != null) {
-            console.log('Loaded Route ' + this.endPoint + '/' + endPoint);
-            this.router.post(this.endPoint + '/' + endPoint, middlewares, handler);
-        }
-        else
-            throw new InvalidHandlerException_1.InvalidHandlerException();
-    }
     async create(request, response, next) {
         try {
             const res = await this.getPresenter().create(request.body.data);
@@ -127,6 +101,32 @@ class BaseController {
         catch (e) {
             next(e);
         }
+    }
+    // mapping router with functions
+    openCRUDRoutes() {
+        this.openCreateRoute();
+        this.openFindRoute();
+        this.openFindOneRoute();
+        this.openUpdateRoute();
+        this.openFindOneAndUpdateRoute();
+        this.openDeleteRoute();
+    }
+    openCustomRoutes() {
+        if (this.attachCustomRoutes() != null) {
+            // tslint:disable-next-line: prefer-for-of
+            for (let i = 0; i < this.attachCustomRoutes().length; i = i + 1) {
+                const customRoute = this.attachCustomRoutes()[i];
+                this.addRoute(customRoute.endPoint, customRoute.handler, customRoute.middlewares);
+            }
+        }
+    }
+    addRoute(endPoint, handler, ...middlewares) {
+        if (handler != null) {
+            console.log('Loaded Route ' + this.endPoint + '/' + endPoint);
+            this.router.post(this.endPoint + '/' + endPoint, middlewares, handler);
+        }
+        else
+            throw new InvalidHandlerException_1.InvalidHandlerException();
     }
 }
 exports.BaseController = BaseController;
