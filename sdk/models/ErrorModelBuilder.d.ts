@@ -1,5 +1,5 @@
-import ErrorModel from "./ErrorModel";
-export default class ErrorModelBuilder {
+import { ErrorModel } from "./ErrorModel";
+export declare class ErrorModelBuilder {
     private titleValue;
     private subTitleValue;
     private opStatusValue;

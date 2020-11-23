@@ -1,4 +1,4 @@
-export default class ErrorModel {
+export  class ErrorModel {
     public title!: string;
     public subTitle!: string;
     public opStatus!: number;

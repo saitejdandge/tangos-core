@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ErrorModel = void 0;
 class ErrorModel {
     constructor(titleValue, subTitleValue, imageValue, opStatusValue) {
         this.title = titleValue;
@@ -8,4 +9,4 @@ class ErrorModel {
         this.opStatus = opStatusValue;
     }
 }
-exports.default = ErrorModel;
+exports.ErrorModel = ErrorModel;

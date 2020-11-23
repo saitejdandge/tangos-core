@@ -6,6 +6,7 @@ import { DataDTO } from './dto/dataDTO';
 import { IdDTO } from './dto/IdDTO';
 import { DBConnectionException } from './exceptions/DBConnectionException';
 import { HttpException } from './exceptions/HttpException';
+import { ErrorModel } from './models/ErrorModel';
 import { InvalidHandlerException } from './exceptions/InvalidHandlerException';
 import { InvalidParamsException } from './exceptions/InvalidParamsException';
 import { PageNotFoundException } from './exceptions/PageNotFoundException';
@@ -42,5 +43,6 @@ declare const _default: {
     CommonEndPoints: typeof CommonEndPoints;
     validateEnv: typeof validateEnv;
     BaseApp: typeof BaseApp;
+    ErrorModel: typeof ErrorModel;
 };
 export default _default;

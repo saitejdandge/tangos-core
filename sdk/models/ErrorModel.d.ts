@@ -1,4 +1,4 @@
-export default class ErrorModel {
+export declare class ErrorModel {
     title: string;
     subTitle: string;
     opStatus: number;

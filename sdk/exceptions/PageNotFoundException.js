@@ -5,7 +5,7 @@ const ErrorModelBuilder_1 = require("../models/ErrorModelBuilder");
 const HttpException_1 = require("./HttpException");
 class PageNotFoundException extends HttpException_1.HttpException {
     constructor() {
-        super(new ErrorModelBuilder_1.default()
+        super(new ErrorModelBuilder_1.ErrorModelBuilder()
             .title('Page not found')
             .opStatus(404)
             .build());

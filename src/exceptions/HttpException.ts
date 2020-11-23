@@ -1,4 +1,4 @@
-import ErrorModel from "../models/ErrorModel";
+import {ErrorModel} from "../models/ErrorModel";
 
 export class HttpException extends Error {
 

@@ -8,6 +8,7 @@ const dataDTO_1 = require("./dto/dataDTO");
 const IdDTO_1 = require("./dto/IdDTO");
 const DBConnectionException_1 = require("./exceptions/DBConnectionException");
 const HttpException_1 = require("./exceptions/HttpException");
+const ErrorModel_1 = require("./models/ErrorModel");
 const InvalidHandlerException_1 = require("./exceptions/InvalidHandlerException");
 const InvalidParamsException_1 = require("./exceptions/InvalidParamsException");
 const PageNotFoundException_1 = require("./exceptions/PageNotFoundException");
@@ -45,4 +46,5 @@ exports.default = {
     CommonEndPoints: CommonEndPoints_1.CommonEndPoints,
     validateEnv: validateEnv_1.validateEnv,
     BaseApp: BaseApp_1.BaseApp,
+    ErrorModel: ErrorModel_1.ErrorModel,
 };

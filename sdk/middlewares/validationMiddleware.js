@@ -12,7 +12,7 @@ function validationMiddleware(type, skipMissingProperties = false) {
                 const message = errors
                     .map((error) => error.constraints ? Object.values(error.constraints) : '')
                     .join(', ');
-                next(new HttpException_1.HttpException(new ErrorModelBuilder_1.default().opStatus(500).title(message).build()));
+                next(new HttpException_1.HttpException(new ErrorModelBuilder_1.ErrorModelBuilder().opStatus(500).title(message).build()));
             }
             else {
                 next();
@@ -28,7 +28,7 @@ function validateFieldMiddleware(type, field, skipMissingProperties = false) {
                 const message = errors
                     .map((error) => error.constraints ? Object.values(error.constraints) : '')
                     .join(', ');
-                next(new HttpException_1.HttpException(new ErrorModelBuilder_1.default().title(message).opStatus(400).build()));
+                next(new HttpException_1.HttpException(new ErrorModelBuilder_1.ErrorModelBuilder().title(message).opStatus(400).build()));
             }
             else {
                 next();

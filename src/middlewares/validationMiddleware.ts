@@ -2,8 +2,8 @@ import { plainToClass } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
 import { HttpException } from '../exceptions/HttpException';
-import ErrorModel from '../models/ErrorModel';
-import ErrorModelBuilder from '../models/ErrorModelBuilder';
+import { ErrorModel } from '../models/ErrorModel';
+import {ErrorModelBuilder} from '../models/ErrorModelBuilder';
 
 export function validationMiddleware<T>(
   type: any,

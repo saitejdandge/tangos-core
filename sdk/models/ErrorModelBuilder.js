@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ErrorModelBuilder = void 0;
 const ErrorModel_1 = require("./ErrorModel");
 class ErrorModelBuilder {
     title(title) {
@@ -19,7 +20,7 @@ class ErrorModelBuilder {
         return this;
     }
     build() {
-        return new ErrorModel_1.default(this.titleValue, this.subTitleValue, this.imageValue, this.opStatusValue);
+        return new ErrorModel_1.ErrorModel(this.titleValue, this.subTitleValue, this.imageValue, this.opStatusValue);
     }
 }
-exports.default = ErrorModelBuilder;
+exports.ErrorModelBuilder = ErrorModelBuilder;

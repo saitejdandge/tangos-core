@@ -1,4 +1,5 @@
-import ErrorModelBuilder from '../models/ErrorModelBuilder';
+
+import { ErrorModelBuilder } from '../models/ErrorModelBuilder';
 import { HttpException } from './HttpException';
 
 export class DBConnectionException extends HttpException {
