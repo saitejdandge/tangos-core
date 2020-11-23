@@ -9,6 +9,7 @@ import { IdDTO } from './dto/IdDTO';
 import { DBConnectionException } from './exceptions/DBConnectionException';
 import { HttpException } from './exceptions/HttpException';
 import { ErrorModel } from './models/ErrorModel';
+import { ErrorModelBuilder } from './models/ErrorModelBuilder';
 
 import { InvalidHandlerException } from './exceptions/InvalidHandlerException';
 import { InvalidParamsException } from './exceptions/InvalidParamsException';
@@ -50,4 +51,5 @@ export default {
   validateEnv,
   BaseApp,
   ErrorModel,
+  ErrorModelBuilder
 };
