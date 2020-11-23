@@ -2,11 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HttpException = void 0;
 class HttpException extends Error {
-    constructor(result, opStatus, message) {
-        super(message);
-        this.opStatus = opStatus;
-        this.result = result;
-        this.message = message;
+    constructor(errorModel) {
+        super(errorModel.title);
+        this.errorModel = errorModel;
     }
 }
 exports.HttpException = HttpException;

@@ -1,7 +1,11 @@
+import ErrorModelBuilder from '../models/ErrorModelBuilder';
 import { HttpException } from './HttpException';
 
 export class InvalidHandlerException extends HttpException {
   constructor() {
-    super(0, 100, 'Invalid Handler');
+    super(new ErrorModelBuilder()
+      .title('Invalid Handler')
+      .opStatus(100)
+      .build());
   }
 }

@@ -1,7 +1,8 @@
+import ErrorModelBuilder from '../models/ErrorModelBuilder';
 import { HttpException } from './HttpException';
 
 export class TimeoutException extends HttpException {
   constructor() {
-    super(0, 302, 'Request timed out');
+    super(new ErrorModelBuilder().title('Request timed out').opStatus(401).build());
   }
 }

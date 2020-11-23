@@ -2,6 +2,8 @@ import { plainToClass } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
 import { HttpException } from '../exceptions/HttpException';
+import ErrorModel from '../models/ErrorModel';
+import ErrorModelBuilder from '../models/ErrorModelBuilder';
 
 export function validationMiddleware<T>(
   type: any,
@@ -14,7 +16,7 @@ export function validationMiddleware<T>(
           const message = errors
             .map((error: ValidationError) => error.constraints ? Object.values(error.constraints) : '')
             .join(', ');
-          next(new HttpException(0, 400, message));
+          next(new HttpException(new ErrorModelBuilder().opStatus(500).title(message).build()));
         } else {
           next();
         }
@@ -34,7 +36,7 @@ export function validateFieldMiddleware<T>(
           const message = errors
             .map((error: ValidationError) => error.constraints ? Object.values(error.constraints) : '')
             .join(', ');
-          next(new HttpException(0, 400, message));
+          next(new HttpException(new ErrorModelBuilder().title(message).opStatus(400).build()));
         } else {
           next();
         }

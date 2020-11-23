@@ -8,9 +8,9 @@ export function errorHandlerMiddleware(
   response: express.Response,
   next: express.NextFunction,
 ) {
-  const opStatus = error.opStatus || 500;
+  const opStatus = (error.errorModel != null ? error.errorModel.opStatus : 500);
   const message = error.message || 'Something went wrong';
-  const result = error.result || 0;
+  const result = 0;
   response.json({
     opStatus,
     message,
