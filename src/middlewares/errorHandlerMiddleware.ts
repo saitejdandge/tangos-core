@@ -11,7 +11,7 @@ export function errorHandlerMiddleware(
 
   if (error.errorModel != null) {
     const opStatus = (error.errorModel.opStatus != null ? error.errorModel.opStatus : 500);
-    const message = error.errorModel.subTitle || 'Something went wrong';
+    const message = error.errorModel.title || 'Something went wrong';
 
     let responseValue: any = {
       opStatus,
