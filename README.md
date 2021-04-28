@@ -162,16 +162,16 @@ Middlewares mentioned below are default loaded in top to bottom order
 <h2>_Dependency Graphs_</h2>
 
 **Base Controller and Base Presenter**
-<img src="src/Controllers_Presenters.png" width="897" height="937"/>
+<img src="https://github.com/appening/tangos-core/blob/master/images/Controllers_Presenters.png" width="897" height="937"/>
 
 **Exceptions**
-<img src="src/exceptions.png" width="897" height="937"/>
+<img src="https://github.com/appening/tangos-core/blob/master/images/exceptions.png" width="897" height="937"/>
 
 **Base App**
-<img src="src/BaseApp.png" width="897" height="937"/>
+<img src="https://github.com/appening/tangos-core/blob/master/images/BaseApp.png" width="897" height="937"/>
 
 **Middlewares**
-<img src="src/middlewares.png" width="897" height="937"/>
+<img src="https://github.com/appening/tangos-core/blob/master/images/middlewares.png" width="897" height="937"/>
 
 If you like my project, Star this and if you want to contribute mail me at **saitejdandge1@gmail.com** .
 
