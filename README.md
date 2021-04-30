@@ -1,5 +1,4 @@
 # Tangos
-https://appening.github.io/Tangos/
 
 <img src="https://travis-ci.com/appening/tangos-core.svg?token=Yn7mCw2maRGo8ANAgDa6&branch=master"/>
 
